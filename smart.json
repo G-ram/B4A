@@ -1,0 +1,19 @@
+{
+  "packages": {
+    "iron-router": {},
+    "spin": {},
+    "bower": {},
+    "moment": {},
+    "fast-render": {},
+    "apm": {},
+    "collection2": {},
+    "simple-schema": {},
+    "blaze-layout": {},
+    "collection-hooks": {},
+    "jquery-ui": {},
+    "less-flat-ui":{
+        "git": "https://github.com/G-ram/meteor-less-flat-ui"
+    }
+  },
+  "bower": {}
+}
