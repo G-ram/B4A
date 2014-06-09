@@ -3,3 +3,87 @@
 //flat-ui variables
 @import "variables-flat.import.less";
 
+//Custom stylesheets
+@customSheetURL: "../views";
+@import "@{customSheetURL}/navbar/navbar.import.less";
+@import "@{customSheetURL}/sidebar/sidebar.import.less";
+@import "@{customSheetURL}/transfer/transfer.import.less";
+@import "@{customSheetURL}/edit/edit.import.less";
+
+//Global modifiers
+body{
+	padding-top: 70px;
+}
+//Modify bootstrap/flat classes
+.navbar-brand{
+	line-height: 7px;
+}
+//Custom classes
+.top-buffer{
+	margin-top:10px;
+}
+.right-buffer{
+	margin-right: 10px;
+}
+.padding-right{
+	padding-right: 5px;
+}
+.padding-left{
+	padding-left: 5px;
+}
+.full-width{
+	width:100%;
+}
+.no-left-padding{
+	padding-left: 0px;
+}
+.no-right-padding{
+	padding-right: 0px;
+}
+.white{
+	background-color: @inverse;
+}
+.green{
+	background-color: mix(@brand-success, white, 20%);
+}
+.yellow{
+	background-color: mix(@brand-warning, white, 20%);
+}
+.red{
+	background-color: mix(@brand-danger, white, 20%);
+}
+.rotate-90{
+	-moz-transform:rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+.divider{
+	width:100%;
+	height:2px;
+	background-color: @wet-asphalt;
+	margin-top:10px;
+}
+.heading{
+	margin-top:10px;
+	margin-bottom: 10px;
+	line-height: 10px;
+}
+
+//Record styling for activity and linked accounts
+.record-container{
+	margin:0;
+	margin-top:5px;
+	padding-top: 15px;
+	padding-left: 3px;
+	padding-right: 4px;
+}
+.record-recipient{
+	line-height: 2px;
+}
+.record-amount{
+	font-size: ceil(@font-size-base * 1.3);
+}
+.record-transaction-id{
+	line-height: 0px;
+	font-size: ceil(@font-size-base * 0.5);
+}

@@ -1,0 +1,28 @@
+<template name="sidebar">
+	<div class="row">
+		<a href="{{ pathFor 'transfer' }}">
+			<button class="btn btn-hg btn-success full-width">
+				Transfer<span class="fui-arrow-right"></span>
+			</button>
+		</a>
+	</div>
+	<div class="row top-buffer">
+		<a href="{{ pathFor 'contacts' }}">
+			<button class="btn btn-hg btn-warning full-width">
+				Contacts<span class="fui-arrow-right"></span>
+			</button>
+		</a>
+	</div>
+	<div class="row top-buffer">
+		<a href="{{ pathFor 'edit' }}">
+			<button class="btn btn-hg btn-danger full-width">
+				Edit<span class="fui-arrow-right"></span>
+			</button>
+		</a>
+		<div id="sidebar-edit-account">
+			<p class="sidebar-edit-account-sub">Huntington National Bank: ************4567 <span class="pull-right">$0.00</span></p>
+			<p class="sidebar-edit-account-sub">JP Morgan Chase: ************9677 <span class="pull-right">$0.00</span></p>
+			<p class="sidebar-edit-account-sub">Bank of America: ************9412</p>
+		</div>
+	</div>
+</template>

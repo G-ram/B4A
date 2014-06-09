@@ -1,0 +1,14 @@
+<template name="layout">
+	{{> navbar}}
+	<div class="container">
+		{{> yield}}
+		<div class="row-fluid hidden-sm hidden-md hidden-lg">
+			<div class="col-xs-12">
+				{{> footer}}
+			</div>	
+		</div>
+	</div>
+</template>
+<template name="loading">
+  {{> spinner}}
+</template>

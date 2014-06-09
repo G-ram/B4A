@@ -1,0 +1,204 @@
+<template name="edit">
+	<p><strong>Edit Information</strong></p>
+	<form class="form" role="form">
+		<img class="center-block" src="/img/icons/png/Book.png" id="edit-profile-pic"/>
+		<br/>
+		<div class="form-group">
+			<table class="full-width">
+				<tr><td class="padding-right">
+					<input class="form-control" placeholder="First Name">
+				</td><td class="padding-left">
+					<input class="form-control" placeholder="Last Name">
+				</td></tr>
+				<tr><td colspan="2">
+					<div class="top-buffer">
+						<input type="email" class="form-control" placeholder="Email">
+					</div>
+				</td></tr>
+				<tr><td colspan="2">
+					<div class="top-buffer">
+						<input type="tel" class="form-control" placeholder="Phone #">
+					</div>
+				</td></tr>
+				<tr><td colspan="2">
+					<div class="top-buffer">
+						<a href="">
+							<button class="btn btn-hg btn-success full-width">
+								Save
+							</button>
+						</a>
+					</div>
+				</td></tr>
+			</table>
+		</div>
+	</form>
+	<div class="divider"></div>
+	<p class="heading"><strong>Linked Accounts</strong></p>
+	<a href="{{ pathFor 'edit_add' }}">
+		<button class="btn btn-hg btn-warning full-width">
+			<span class="fui-plus"></span>
+		</button>
+	</a>
+	{{> edit_linked_debit}}
+	{{> edit_linked_credit}}
+	{{> edit_linked_account}}
+</template>
+<template name="edit_add">
+	<p><strong>Add a Card/Account</strong></p>
+	<div class="container">
+		<div class="row">
+			<a href="{{ pathFor 'edit_debit' state='add'}}">
+				<button class="btn btn-hg btn-success full-width">
+					Debit<span class="fui-arrow-right"></span>
+				</button>
+			</a>
+		</div>
+		<div class="row top-buffer">
+			<a href="{{ pathFor 'edit_credit' state='add'}}">
+				<button class="btn btn-hg btn-warning full-width">
+					Credit<span class="fui-arrow-right"></span>
+				</button>
+			</a>
+		</div>
+		<div class="row top-buffer">
+			<a href="{{ pathFor 'edit_account' state='add'}}">
+				<button class="btn btn-hg btn-danger full-width">
+					Bank Account<span class="fui-arrow-right"></span>
+				</button>
+			</a>
+		</div>
+	</div>
+</template>
+<template name="edit_debit">
+	<p><strong>Add a Debit Card</strong></p>
+	<div class="form-group">
+		<table class="full-width">
+			<tr><td colspan="2">
+				<input type="tel" class="form-control" placeholder="Card #">
+			</td></tr>
+			<tr><td class="padding-right">
+				<div class="top-buffer">
+					<input type="date" class="form-control" placeholder="Exp Date">
+				</div>
+			</td><td class="padding-left">
+				<div class="top-buffer">
+					<input type="tel" class="form-control" placeholder="Security Code">
+				</div>
+			</td></tr>
+		</table>
+		<div class="top-buffer">
+			<a href="{{ pathFor 'edit' }}">
+				<button class="btn btn-hg btn-danger full-width">
+					Confirm<span class="fui-arrow-right"></span>
+				</button>
+			</a>
+		</div>
+		<div class="divider"></div>
+		<div class="top-buffer">
+			<a href="javascript:history.back();">
+				<button class="btn btn-hg btn-danger full-width">
+					<span class="fui-cross"></span>Cancel
+				</button>
+			</a>
+		</div>
+	</div>
+</template>
+<template name="edit_credit">
+	<p><strong>Add a Credit Card</strong></p>
+	<div class="form-group">
+		<table class="full-width">
+			<tr><td colspan="2">
+				<input type="tel" class="form-control" placeholder="Card #">
+			</td></tr>
+			<tr><td class="padding-right">
+				<div class="top-buffer">
+					<input type="date" class="form-control" placeholder="Exp Date">
+				</div>
+			</td><td class="padding-left">
+				<div class="top-buffer">
+					<input type="tel" class="form-control" placeholder="Security Code">
+				</div>
+			</td></tr>
+		</table>
+		<div class="top-buffer">
+			<a href="{{ pathFor 'edit' }}">
+				<button class="btn btn-hg btn-danger full-width">
+					Confirm<span class="fui-arrow-right"></span>
+				</button>
+			</a>
+		</div>
+		<div class="divider"></div>
+		<div class="top-buffer">
+			<a href="javascript:history.back();">
+				<button class="btn btn-hg btn-danger full-width">
+					<span class="fui-cross"></span>Cancel
+				</button>
+			</a>
+		</div>
+	</div>
+</template>
+<template name="edit_account">
+	<p><strong>Add a Bank Account</strong></p>
+	<div class="form-group">
+		<table class="full-width">
+			<tr><td>
+				<input type="tel" class="form-control" placeholder="Routing #">
+			</td></tr>
+			<tr><td>
+				<div class="top-buffer">
+					<input type="tel" class="form-control" placeholder="Account #">
+				</div>
+			</td></tr>
+			<tr><td>
+				<div class="top-buffer">
+					<input type="tel" class="form-control" placeholder="Confirm Account #">
+				</div>
+			</td></tr>
+		</table>
+		<div class="top-buffer">
+			<a href="{{ pathFor 'edit' }}">
+				<button class="btn btn-hg btn-danger full-width">
+					Confirm<span class="fui-arrow-right"></span>
+				</button>
+			</a>
+		</div>
+		<div class="divider"></div>
+		<div class="top-buffer">
+			<a href="javascript:history.back();">
+				<button class="btn btn-hg btn-danger full-width">
+					<span class="fui-cross"></span>Cancel
+				</button>
+			</a>
+		</div>
+	</div>
+</template>
+<template name="edit_linked_debit">
+	<div class="row top-buffer record-container green">
+		<p class="record-recipient">Huntington Bank
+			<a href="{{ pathFor 'edit_debit' state='revise'}}">
+				<button class="btn btn-xs btn-success pull-right edit-account-button">Edit</button>
+			</a>
+		</p>
+		<p class="record-transaction-id">Card #: <span>************7654</span></p>
+	</div>
+</template>
+<template name="edit_linked_credit">
+	<div class="row top-buffer record-container yellow">
+		<p class="record-recipient">Visa
+			<a href="{{ pathFor 'edit_credit' state='revise'}}">
+				<button class="btn btn-xs btn-warning pull-right edit-account-button">Edit</button>
+			</a>
+		</p>
+		<p class="record-transaction-id">Card #: <span>************7654</span></p>
+	</div>
+</template>
+<template name="edit_linked_account">
+	<div class="row top-buffer record-container red">
+		<p class="record-recipient">Huntington Bank
+			<a href="{{ pathFor 'edit_account' state='revise'}}">
+				<button class="btn btn-xs btn-danger pull-right edit-account-button">Edit</button>
+			</a>
+		</p>
+		<p class="record-transaction-id">Account #: <span>*********7654</span></p>
+	</div>
+</template>

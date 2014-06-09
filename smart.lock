@@ -77,7 +77,7 @@
       "less-flat-ui": {
         "git": "https://github.com/G-ram/meteor-less-flat-ui",
         "branch": "master",
-        "commit": "27e75d6dbfcea50338af7b8fb2bd63b030c71433"
+        "commit": "c9a8a06e88ea9b96935da2c2a6a07b8d63744ad8"
       }
     }
   }

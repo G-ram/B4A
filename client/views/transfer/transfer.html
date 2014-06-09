@@ -1,0 +1,72 @@
+<template name="transfer">
+	<p><strong>Send/Pay</strong></p>
+	<form class="form-inline" role="form">
+		<table class="full-width">
+			<tr>
+				<td>
+					<div class="dropdown">
+						<button class="btn btn-primary dropdown-toggle" id="transfer-currency-dropdown-button" data-toggle="dropdown">
+							<span id="transfer-currency-dropdown-current">$</span>
+							<p id="transfer-currency-dropdown-caret">
+								<small><span class="caret"></span></small>
+							</p>
+						</button>
+						<span class="dropdown-arrow dropdown-arrow-inverse"></span>
+						<ul class="dropdown-menu dropdown-inverse">
+							<li><a href="#fakelink">$</a></li>
+							<li><a href="#fakelink">&euro;</a></li>
+							<li><a href="#fakelink">&yen;</a></li>
+						</ul>
+					</div>
+				</td>
+				<td class="col-xs-7 no-right-padding">
+					<input type="text" class="form-control input-hg input-block-level" placeholder="00"/>
+				</td>
+				<td><p class="pull-right" id="transfer-decimal">.</p></td>
+				<td class="col-xs-4">
+					<input type="text" class="form-control input-hg input-block-level" placeholder="00"/>
+				</td>
+			</tr>
+			<tr><td colspan="4">
+				<div class="top-buffer">
+					<div class="btn btn-hg btn-success full-width">
+						<span class="pull-left">From: </span>
+						<span class="fui-arrow-right pull-right rotate-90"></span>
+						<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+						<span class="fui-plus pull-right"></span>
+					</div>
+				</div>
+			</td></tr>
+			<tr><td colspan="4">
+				<div class="top-buffer">
+					<div class="btn btn-hg btn-warning full-width">
+						<span class="pull-left">To: </span>
+						<span class="fui-arrow-right pull-right rotate-90"></span>
+						<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+						<span class="fui-plus pull-right"></span>
+					</div>
+				</div>
+			</td></tr>
+			<tr><td colspan="4">
+				<div class="top-buffer">
+					<a href="{{ pathFor 'transfer_confirm' }}">
+						<button class="btn btn-hg btn-danger full-width">
+							Confirm<span class="fui-arrow-right"></span>
+						</button>
+					</a>
+				</div>
+			</td></tr>
+		</table>
+	</form>
+	<div class="divider"></div>
+	<div class="top-buffer">
+		<a href="javascript:history.back();">
+			<button class="btn btn-hg btn-danger full-width">
+				<span class="fui-cross"></span>Cancel
+			</button>
+		</a>
+	</div>
+</template>
+<template name="transfer_confirm">
+
+</template>
