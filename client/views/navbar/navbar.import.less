@@ -12,3 +12,31 @@
 #navbar-back-button-arrow{
 	font-size: ceil(@font-size-base * 1.5);
 }
+#navbar-mobile-search-button{
+	z-index: 1031;
+}
+#navbar-mobile-search-input-container{
+	display: none;
+	position: absolute;
+	z-index: 1030;
+	top: 0px;
+	left:0px;
+	width:100%;
+	height:@navbar-height-base;
+	background:@navbar-inverse-bg;
+}
+#navbar-mobile-search-input{
+	background: @navbar-inverse-bg;
+	border:none;
+	color:@inverse;
+	font-size:ceil(@font-size-base * 1.0);
+	width:68%;
+	height:@navbar-height-base;
+}
+#navbar-mobile-search-input::-webkit-input-placeholder{color:@inverse;}
+#navbar-mobile-search-input:-moz-placeholder{color:@inverse;} 
+#navbar-mobile-search-input::-moz-placeholder{color:@inverse;}
+#navbar-mobile-search-input:-ms-input-placeholder{color:@inverse;}
+#navbar-mobile-search-input:focus{
+	outline:0;
+}

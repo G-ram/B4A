@@ -2,61 +2,50 @@
 	<p><strong>Send/Pay</strong></p>
 	<form class="form-inline" role="form">
 		<table class="full-width">
-			<tr>
-				<td>
-					<div class="dropdown">
-						<button class="btn btn-primary dropdown-toggle" id="transfer-currency-dropdown-button" data-toggle="dropdown">
-							<span id="transfer-currency-dropdown-current">$</span>
-							<p id="transfer-currency-dropdown-caret">
-								<small><span class="caret"></span></small>
-							</p>
-						</button>
-						<span class="dropdown-arrow dropdown-arrow-inverse"></span>
-						<ul class="dropdown-menu dropdown-inverse">
-							<li><a href="#fakelink">$</a></li>
-							<li><a href="#fakelink">&euro;</a></li>
-							<li><a href="#fakelink">&yen;</a></li>
-						</ul>
-					</div>
-				</td>
-				<td class="col-xs-7 no-right-padding">
-					<input type="text" class="form-control input-hg input-block-level" placeholder="00"/>
-				</td>
-				<td><p class="pull-right" id="transfer-decimal">.</p></td>
-				<td class="col-xs-4">
-					<input type="text" class="form-control input-hg input-block-level" placeholder="00"/>
-				</td>
-			</tr>
-			<tr><td colspan="4">
-				<div class="top-buffer">
-					<div class="btn btn-hg btn-success full-width">
-						<span class="pull-left">From: </span>
-						<span class="fui-arrow-right pull-right rotate-90"></span>
-						<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-						<span class="fui-plus pull-right"></span>
-					</div>
+			<tr><td class="padding-right">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" id="transfer-currency-dropdown-button" data-toggle="dropdown">
+						<span id="transfer-currency-dropdown-current">$</span>
+						<p id="transfer-currency-dropdown-caret">
+							<small><span class="caret"></span></small>
+						</p>
+					</button>
+					<span class="dropdown-arrow dropdown-arrow-inverse"></span>
+					<ul class="dropdown-menu dropdown-inverse">
+						<li><a href="#fakelink">$</a></li>
+						<li><a href="#fakelink">&euro;</a></li>
+						<li><a href="#fakelink">&yen;</a></li>
+					</ul>
 				</div>
-			</td></tr>
-			<tr><td colspan="4">
-				<div class="top-buffer">
-					<div class="btn btn-hg btn-warning full-width">
-						<span class="pull-left">To: </span>
-						<span class="fui-arrow-right pull-right rotate-90"></span>
-						<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-						<span class="fui-plus pull-right"></span>
-					</div>
-				</div>
-			</td></tr>
-			<tr><td colspan="4">
-				<div class="top-buffer">
-					<a href="{{ pathFor 'transfer_confirm' }}">
-						<button class="btn btn-hg btn-danger full-width">
-							Confirm<span class="fui-arrow-right"></span>
-						</button>
-					</a>
-				</div>
+			</td><td class="col-xs-8 padding-right padding-left">
+				<input type="text" class="form-control input-hg" placeholder="00" style="width:100%;"/>
+			</td><td>
+				<p id="transfer-decimal">.</p>
+			</td><td class="col-xs-4 padding-left no-right-padding">
+				<input type="text" class="form-control input-hg" placeholder="00" style="width:100%;"/>
 			</td></tr>
 		</table>
+		<div class="top-buffer">
+			<div class="btn btn-hg btn-success full-width" id="transfer-from-button">
+				<span class="pull-left">From: </span>
+				<span class="fui-arrow-right pull-right rotate-90"></span>
+			</div>
+		</div>
+		<div class="top-buffer">
+			<div class="btn btn-hg btn-warning full-width">
+				<span class="pull-left">To: </span>
+				<span class="fui-arrow-right pull-right rotate-90" id="transfer-to-choose-button"></span>
+				<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+				<span class="fui-plus pull-right" id="transfer-to-plus-button"></span>
+			</div>
+		</div>
+		<div class="top-buffer">
+			<a href="{{ pathFor 'transfer_confirm' }}">
+				<button class="btn btn-hg btn-danger full-width">
+					Confirm<span class="fui-arrow-right"></span>
+				</button>
+			</a>
+		</div>
 	</form>
 	<div class="divider"></div>
 	<div class="top-buffer">
@@ -66,7 +55,24 @@
 			</button>
 		</a>
 	</div>
+	<div class="transfer-popup-container" id="transfer-list-accounts-container">
+		<a href="" class="transfer-close-button"><span class="fui-cross"></span></a>
+		
+	</div>
+	<div class="transfer-popup-container" id="transfer-list-contacts-container">
+		<a href="" class="transfer-close-button"><span class="fui-cross"></span></a>
+		<div class="container">
+			{{> contacts}}
+		</div>
+	</div>
+	<div class="transfer-popup-container" id="transfer-add-contact-container">
+		<a href="" class="transfer-close-button"><span class="fui-cross"></span></a>
+		<div class="container">
+			{{> contacts_add}}
+		</div>
+	</div>
 </template>
+
 <template name="transfer_confirm">
 
 </template>

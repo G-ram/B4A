@@ -8,10 +8,26 @@ Router.onBeforeAction(function(){
 });
 //Search button
 Template.navbar.events({
-	'click #navbar-search-button': function(e) {
-		Template.navbar.toggleSearch();
+	'click #navbar-mobile-search-button': function(e) {
+		Template.navbar.search();
+	},
+	'click #navbar-mobile-search-cancel-button': function(e){
+		Template.navbar.hideSearch();
 	}
 });
-Template.navbar.toggleSearch = function(){
+Template.navbar.search = function(){
+	if(!$("#navbar-mobile-search-button").hasClass('clicked')){
+		$("#navbar-mobile-search-input-container").fadeIn( "slow");
+		$("#navbar-mobile-search-input").focus();
+		$("#navbar-mobile-search-button").animate({left: "+=90px",},1.0);
+		$("#navbar-mobile-search-button").addClass("clicked");
+	}else{
 
+	}
+}
+Template.navbar.hideSearch = function(){
+	$("#navbar-mobile-search-input-container").fadeOut( "slow");
+	$("#navbar-mobile-search-input").blur();
+	$("#navbar-mobile-search-button").animate({left: "-=90px",},1.0);
+	$("#navbar-mobile-search-button").removeClass("clicked");
 }
