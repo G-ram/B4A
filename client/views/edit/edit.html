@@ -23,7 +23,7 @@
 				<tr><td colspan="2">
 					<div class="top-buffer">
 						<a href="">
-							<button class="btn btn-hg btn-success full-width">
+							<button class="btn btn-hg btn-success full-width" id="edit-save-button">
 								Save
 							</button>
 						</a>
@@ -72,7 +72,7 @@
 </template>
 
 <template name="edit_debit">
-	<p><strong>Add a Debit Card</strong></p>
+	<p><strong>{{state}} a Debit Card</strong></p>
 	<div class="form-group">
 		<table class="full-width">
 			<tr><td colspan="2">
@@ -99,7 +99,7 @@
 		<div class="top-buffer">
 			<a href="javascript:history.back();">
 				<button class="btn btn-hg btn-danger full-width">
-					<span class="fui-cross"></span>Cancel
+					<span class="fui-arrow-left"></span>Back
 				</button>
 			</a>
 		</div>
@@ -107,7 +107,7 @@
 </template>
 
 <template name="edit_credit">
-	<p><strong>Add a Credit Card</strong></p>
+	<p><strong>{{state}} a Credit Card</strong></p>
 	<div class="form-group">
 		<table class="full-width">
 			<tr><td colspan="2">
@@ -134,7 +134,7 @@
 		<div class="top-buffer">
 			<a href="javascript:history.back();">
 				<button class="btn btn-hg btn-danger full-width">
-					<span class="fui-cross"></span>Cancel
+					<span class="fui-arrow-left"></span>Back
 				</button>
 			</a>
 		</div>
@@ -142,7 +142,7 @@
 </template>
 
 <template name="edit_account">
-	<p><strong>Add a Bank Account</strong></p>
+	<p><strong>{{state}} a Bank Account</strong></p>
 	<div class="form-group">
 		<table class="full-width">
 			<tr><td>
@@ -170,7 +170,7 @@
 		<div class="top-buffer">
 			<a href="javascript:history.back();">
 				<button class="btn btn-hg btn-danger full-width">
-					<span class="fui-cross"></span>Cancel
+					<span class="fui-arrow-left"></span>Back
 				</button>
 			</a>
 		</div>
@@ -178,34 +178,34 @@
 </template>
 
 <template name="edit_linked_debit">
-	<div class="row top-buffer record-container green">
-		<p class="record-recipient">Huntington Bank
-			<a href="{{ pathFor 'edit_debit' state='revise'}}">
-				<button class="btn btn-xs btn-success pull-right edit-account-button">Edit</button>
-			</a>
-		</p>
-		<p class="record-transaction-id">Card #: <span>************7654</span></p>
-	</div>
+	<a href="{{ pathFor 'edit_debit' state='revise'}}">
+		<div class="row top-buffer record-container green">
+			<p class="record-recipient">Huntington Bank
+					<span class="fui-arrow-right pull-right edit-account-button"></span>
+			</p>
+			<p class="record-transaction-id">Card #: <span>************7654</span></p>
+		</div>
+	</a>
 </template>
 
 <template name="edit_linked_credit">
-	<div class="row top-buffer record-container yellow">
-		<p class="record-recipient">Visa
-			<a href="{{ pathFor 'edit_credit' state='revise'}}">
-				<button class="btn btn-xs btn-warning pull-right edit-account-button">Edit</button>
-			</a>
-		</p>
-		<p class="record-transaction-id">Card #: <span>************7654</span></p>
-	</div>
+	<a href="{{ pathFor 'edit_credit' state='revise'}}">
+		<div class="row top-buffer record-container yellow">
+			<p class="record-recipient">Visa
+				<span class="fui-arrow-right pull-right edit-account-button"></span>
+			</p>
+			<p class="record-transaction-id">Card #: <span>************7654</span></p>
+		</div>
+	</a>
 </template>
 
 <template name="edit_linked_account">
-	<div class="row top-buffer record-container red">
-		<p class="record-recipient">Huntington Bank
-			<a href="{{ pathFor 'edit_account' state='revise'}}">
-				<button class="btn btn-xs btn-danger pull-right edit-account-button">Edit</button>
-			</a>
-		</p>
-		<p class="record-transaction-id">Account #: <span>*********7654</span></p>
-	</div>
+	<a href="{{ pathFor 'edit_account' state='revise'}}">
+		<div class="row top-buffer record-container red">
+			<p class="record-recipient">Huntington Bank
+				<span class="fui-arrow-right pull-right edit-account-button"></span>
+			</p>
+			<p class="record-transaction-id">Account #: <span>*********7654</span></p>
+		</div>
+	</a>
 </template>

@@ -5,9 +5,46 @@
 			<span class="fui-plus"></span>
 		</button>
 	</a>
+	{{contact_record}}
 </template>
 <template name="contacts_add">
-
+	<p><strong>Add a Contact</strong></p>
+	<input type="tel" class="form-control" placeholder="Quick Add: Phone #">
+	<div class="divider"></div>
+	<div class="form-group top-buffer">
+		<table class="full-width">
+			<tr><td class="padding-right">
+				<input class="form-control" placeholder="First Name">
+			</td><td class="padding-left">
+				<input class="form-control" placeholder="Last Name">
+			</td></tr>
+			<tr><td colspan="2">
+				<div class="top-buffer">
+					<input type="email" class="form-control" placeholder="Email">
+				</div>
+			</td></tr>
+			<tr><td colspan="2">
+				<div class="top-buffer">
+					<input type="tel" class="form-control" placeholder="Phone #">
+				</div>
+			</td></tr>
+		</table>
+		<div class="top-buffer">
+			<a href="">
+				<button class="btn btn-hg btn-success full-width" id="contacts-save-button">
+					Save
+				</button>
+			</a>
+		</div>
+	</div>
+	<div class="divider"></div>
+	<div class="top-buffer">
+		<a href="javascript:history.back();">
+			<button class="btn btn-hg btn-danger full-width">
+				<span class="fui-arrow-left"></span>Back
+			</button>
+		</a>
+	</div>
 </template>
 <template name="contact_record">
 

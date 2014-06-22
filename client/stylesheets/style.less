@@ -10,6 +10,7 @@
 @import "@{customSheetURL}/sidebar/sidebar.import.less";
 @import "@{customSheetURL}/transfer/transfer.import.less";
 @import "@{customSheetURL}/edit/edit.import.less";
+@import "@{customSheetURL}/a(firstLoad)/notification.import.less";
 
 //Global modifiers
 body{
@@ -77,6 +78,19 @@ body{
 	padding-top: 15px;
 	padding-left: 3px;
 	padding-right: 4px;
+	color: @midnight-blue;
+}
+.record-container:hover{
+	color:@midnight-blue;
+}
+.record-container.green:hover{
+	background-color: mix(@brand-success, white, 40%);
+}
+.record-container.yellow:hover{
+	background-color: mix(@brand-warning, white, 40%);
+}
+.record-container.red:hover{
+	background-color: mix(@brand-danger, white, 40%);
 }
 .record-recipient{
 	line-height: 2px;

@@ -15,8 +15,7 @@ Router.map(function() {
     path: '/transfer'
   });
   this.route('transfer_confirm', {
-    path: '/transfer/confirm',
-    template: 'transfer_confirm'
+    path: '/transfer/confirm'
   });
   this.route('contacts', {
     path: '/contacts'
@@ -31,12 +30,36 @@ Router.map(function() {
     path: '/edit/add'
   });
   this.route('edit_debit', {
-    path: '/edit/:state/debit'
+    path: '/edit/:state/debit',
+    data:function(){
+      var state = "Add";
+      if(this.params.state == "revise"){state = "Revise"}
+      templateData = {
+        state: state
+      };
+      return templateData;
+    }
   });
   this.route('edit_credit', {
-    path: '/edit/:state/credit'
+    path: "/edit/:state/debit",
+    data:function(){
+      var state = "Add";
+      if(this.params.state == "revise"){state = "Revise"}
+      templateData = {
+        state: state
+      };
+      return templateData;
+    }
   });
   this.route('edit_account', {
-    path: '/edit/:state/account'
+    path: '/edit/:state/account',
+    data:function(){
+      var state = "Add";
+      if(this.params.state == "revise"){state = "Revise"}
+      templateData = {
+        state: state
+      };
+      return templateData;
+    }
   });
 });

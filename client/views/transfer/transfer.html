@@ -57,7 +57,9 @@
 	</div>
 	<div class="transfer-popup-container" id="transfer-list-accounts-container">
 		<a href="" class="transfer-close-button"><span class="fui-cross"></span></a>
-		
+		<div class="container">
+			{{> accounts_popup}}
+		</div>
 	</div>
 	<div class="transfer-popup-container" id="transfer-list-contacts-container">
 		<a href="" class="transfer-close-button"><span class="fui-cross"></span></a>
@@ -72,7 +74,46 @@
 		</div>
 	</div>
 </template>
-
 <template name="transfer_confirm">
 
+</template>
+
+<template name="accounts_popup">
+	<p><strong>Select an Account</strong></p>
+	{{> linked_debit}}
+	{{> linked_credit}}
+	{{> linked_account}}
+</template>
+
+<template name="linked_debit">
+	<a href="">
+		<div class="row top-buffer btn-success record-container">
+			<p class="record-recipient">Huntington Bank
+					<span class="fui-arrow-right pull-right edit-account-button"></span>
+			</p>
+			<p class="record-transaction-id">Card #: <span>************7654</span></p>
+		</div>
+	</a>
+</template>
+
+<template name="linked_credit">
+	<a href="">
+		<div class="row top-buffer btn-warning record-container">
+			<p class="record-recipient">Visa
+				<span class="fui-arrow-right pull-right edit-account-button"></span>
+			</p>
+			<p class="record-transaction-id">Card #: <span>************7654</span></p>
+		</div>
+	</a>
+</template>
+
+<template name="linked_account">
+	<a href="">
+		<div class="row top-buffer btn-danger record-container">
+			<p class="record-recipient">Huntington Bank
+				<span class="fui-arrow-right pull-right edit-account-button"></span>
+			</p>
+			<p class="record-transaction-id">Account #: <span>*********7654</span></p>
+		</div>
+	</a>
 </template>
