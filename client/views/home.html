@@ -1,0 +1,21 @@
+<template name="home">
+	{{#unless currentUser}}
+	    Home w/out Login
+		<a href="{{ pathFor 'login' }}">
+			<button class="btn btn-hg btn-info full-width">
+				LogIn/SignUp
+			</button>
+		</a>
+	{{else}}
+		<div class="row-fluid">
+			<div class="col-xs-12">
+				{{> sidebar}}
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="col-xs-12">
+				{{> activity}}
+			</div>
+		</div>
+	{{/unless}}
+</template>

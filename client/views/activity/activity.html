@@ -2,11 +2,21 @@
 	<div class="row">
 		<div class="divider"></div>
 		<p class="heading"><strong>Activity</strong></p>
-		{{> activity_record}}
-		{{> activity_record}}
-		{{> activity_record}}
-		{{> activity_record}}
-		<div class="divider"></div>
+		<!--{{{#if isNull currentUser.contactList}}-->
+		<div class="text-center full-width top-buffer">
+			<strong>No activity yet.</strong>
+		</div>
+		<!--{{else}}
+			{{#each getKeyAndValue currentUser.contactList}}
+				<a href="{{pathFor 'contact_info_view'}}">
+					<div class="row top-buffer record-container green no-padding-top">
+						<strong class="padding-left">{{value}}</strong>
+						<span class="fui-arrow-right pull-right contact-record-select-button"></span>
+					</div>
+				</a>
+			{{/each}}
+			<div class="divider"></div>
+		{{/if}}-->
 	</div>
 </template>
 <template name="activity_sidebar">

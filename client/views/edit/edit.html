@@ -1,23 +1,28 @@
 <template name="edit">
 	<p><strong>Edit Information</strong></p>
 	<form class="form" role="form">
-		<img class="center-block" src="/img/icons/png/Book.png" id="edit-profile-pic"/>
+		<img class="center-block" src="{{currentUser.profilePicUrl}}" id="edit-profile-pic"/>
 		<br/>
 		<div class="form-group">
 			<table class="full-width">
 				<tr><td class="padding-right">
-					<input class="form-control" placeholder="First Name">
+					<input id="edit-first-name-input" class="form-control" placeholder="{{isNullWithValue currentUser.firstName 'First Name'}}" value="{{isNullWithValue currentUser.firstName ''}}">
 				</td><td class="padding-left">
-					<input class="form-control" placeholder="Last Name">
+					<input id="edit-last-name-input" class="form-control" placeholder="{{isNullWithValue currentUser.lastName 'Last Name'}}" value="{{isNullWithValue currentUser.lastName ''}}">
 				</td></tr>
 				<tr><td colspan="2">
 					<div class="top-buffer">
-						<input type="email" class="form-control" placeholder="Email">
+						<input id="edit-business-input" type="email" class="form-control" placeholder="{{isNullWithValue currentUser.business 'Business'}}" value="{{isNullWithValue currentUser.business ''}}">
 					</div>
 				</td></tr>
 				<tr><td colspan="2">
 					<div class="top-buffer">
-						<input type="tel" class="form-control" placeholder="Phone #">
+						<input id="edit-email-input" type="email" class="form-control" placeholder="{{isNullWithValue currentUser.email 'Email'}}" value="{{isNullWithValue currentUser.email ''}}">
+					</div>
+				</td></tr>
+				<tr><td colspan="2">
+					<div class="top-buffer">
+						<input id="edit-phone-number-input" type="tel" class="form-control" placeholder="{{isNullWithValue currentUser.phoneNumber 'Phone Number'}}" value="{{isNullWithValue currentUser.phoneNumber ''}}">
 					</div>
 				</td></tr>
 				<tr><td colspan="2">
@@ -39,9 +44,44 @@
 			<span class="fui-plus"></span>
 		</button>
 	</a>
-	{{> edit_linked_debit}}
-	{{> edit_linked_credit}}
-	{{> edit_linked_account}}
+	{{#if isNull currentUser.bankList}}
+		<div class="text-center full-width top-buffer">
+			<strong>Go add a bank account, credit card, or debit card.</strong>
+		</div>
+	{{else}}
+		{{#each currentUser.bankList}}
+			{{#if isEqual this.type "account"}}
+				<a href="{{ pathFor 'edit_account' state='revise' bankId=this.id}}">
+					<div class="row top-buffer record-container green">
+						<p class="record-recipient">{{this.bankName}}
+								<span class="fui-arrow-right pull-right edit-account-button"></span>
+						</p>
+						<p class="record-transaction-id">Routing #: <span>{{this.routingNumber}}</span></p>
+					</div>
+				</a>
+			{{else}}
+				{{#if isEqual this.type "credit"}}
+					<a href="{{ pathFor 'edit_credit' state='revise' bankId=this.id}}">
+						<div class="row top-buffer record-container yellow">
+							<p class="record-recipient">{{this.bankName}}
+								<span class="fui-arrow-right pull-right edit-account-button"></span>
+							</p>
+							<p class="record-transaction-id">Card #: <span>{{this.cardNumber}}</span></p>
+						</div>
+					</a>
+				{{else}}
+					<a href="{{ pathFor 'edit_debit' state='revise' bankId=this.id}}">
+						<div class="row top-buffer record-container red">
+							<p class="record-recipient">{{this.bankName}}
+								<span class="fui-arrow-right pull-right edit-account-button"></span>
+							</p>
+							<p class="record-transaction-id">Account #: <span>{{this.accountNumber}}</span></p>
+						</div>
+					</a>
+				{{/if}}
+			{{/if}}
+		{{/each}}
+	{{/if}}
 </template>
 
 <template name="edit_add">
@@ -72,19 +112,19 @@
 </template>
 
 <template name="edit_debit">
-	<p><strong>{{state}} a Debit Card</strong></p>
+	<p><strong>{{getSession "isRevise"}} a Debit Card</strong></p>
 	<div class="form-group">
 		<table class="full-width">
 			<tr><td colspan="2">
-				<input type="tel" class="form-control" placeholder="Card #">
+				<input type="tel" id="edit-debit-card-number-input" class="form-control" Value="Card #">
 			</td></tr>
 			<tr><td class="padding-right">
 				<div class="top-buffer">
-					<input type="date" class="form-control" placeholder="Exp Date">
+					<input type="date" id="edit-debit-expiration-date-input" class="form-control" Value="Exp Date">
 				</div>
 			</td><td class="padding-left">
 				<div class="top-buffer">
-					<input type="tel" class="form-control" placeholder="Security Code">
+					<input type="tel" id="edit-debit-security-code-input" class="form-control" Value="Security Code">
 				</div>
 			</td></tr>
 		</table>
@@ -107,19 +147,19 @@
 </template>
 
 <template name="edit_credit">
-	<p><strong>{{state}} a Credit Card</strong></p>
+	<p><strong>{{getSession "isRevise"}} a Credit Card</strong></p>
 	<div class="form-group">
 		<table class="full-width">
 			<tr><td colspan="2">
-				<input type="tel" class="form-control" placeholder="Card #">
+				<input type="tel" id="edit-credit-card-number-input" class="form-control" Value="Card #">
 			</td></tr>
 			<tr><td class="padding-right">
 				<div class="top-buffer">
-					<input type="date" class="form-control" placeholder="Exp Date">
+					<input type="date" id="edit-credit-expiration-date-input" class="form-control" Value="Exp Date">
 				</div>
 			</td><td class="padding-left">
 				<div class="top-buffer">
-					<input type="tel" class="form-control" placeholder="Security Code">
+					<input type="tel" id="#edit-credit-security-code-input" class="form-control" Value="Security Code">
 				</div>
 			</td></tr>
 		</table>
@@ -142,20 +182,20 @@
 </template>
 
 <template name="edit_account">
-	<p><strong>{{state}} a Bank Account</strong></p>
+	<p><strong>{{getSession "isRevise"}} a Bank Account</strong></p>
 	<div class="form-group">
 		<table class="full-width">
 			<tr><td>
-				<input type="tel" class="form-control" placeholder="Routing #">
+				<input type="tel" id="edit-account-routing-number-input" class="form-control" value="{{currentUser.bankList.routingNumber}}">
 			</td></tr>
 			<tr><td>
 				<div class="top-buffer">
-					<input type="tel" class="form-control" placeholder="Account #">
+					<input type="tel" id="edit-account-account-number-input" class="form-control" value="Account #">
 				</div>
 			</td></tr>
 			<tr><td>
 				<div class="top-buffer">
-					<input type="tel" class="form-control" placeholder="Confirm Account #">
+					<input type="tel" class="form-control" Value="Confirm Account #">
 				</div>
 			</td></tr>
 		</table>
@@ -175,37 +215,4 @@
 			</a>
 		</div>
 	</div>
-</template>
-
-<template name="edit_linked_debit">
-	<a href="{{ pathFor 'edit_debit' state='revise'}}">
-		<div class="row top-buffer record-container green">
-			<p class="record-recipient">Huntington Bank
-					<span class="fui-arrow-right pull-right edit-account-button"></span>
-			</p>
-			<p class="record-transaction-id">Card #: <span>************7654</span></p>
-		</div>
-	</a>
-</template>
-
-<template name="edit_linked_credit">
-	<a href="{{ pathFor 'edit_credit' state='revise'}}">
-		<div class="row top-buffer record-container yellow">
-			<p class="record-recipient">Visa
-				<span class="fui-arrow-right pull-right edit-account-button"></span>
-			</p>
-			<p class="record-transaction-id">Card #: <span>************7654</span></p>
-		</div>
-	</a>
-</template>
-
-<template name="edit_linked_account">
-	<a href="{{ pathFor 'edit_account' state='revise'}}">
-		<div class="row top-buffer record-container red">
-			<p class="record-recipient">Huntington Bank
-				<span class="fui-arrow-right pull-right edit-account-button"></span>
-			</p>
-			<p class="record-transaction-id">Account #: <span>*********7654</span></p>
-		</div>
-	</a>
 </template>

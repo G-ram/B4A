@@ -21,18 +21,18 @@
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.7.1",
-        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
+        "tag": "v0.8.0",
+        "commit": "e38588cb4ddc841de83f03be135d65607dfe98ba"
       },
       "spin": {
         "git": "https://github.com/SachaG/meteor-spin.git",
-        "tag": "v0.2.2",
-        "commit": "3f655f0016228e4195acc784c45d3e3a247dc39f"
+        "tag": "v2.0.3",
+        "commit": "23c1145472a710d5c93fa4beaca4e576caeb2f24"
       },
       "bower": {
         "git": "https://github.com/mquandalle/meteor-bower.git",
-        "tag": "v0.1.8",
-        "commit": "5699c3f29a936dcb2aa1221a9febd4669764fc91"
+        "tag": "v0.1.10",
+        "commit": "ba0081a9f2919918f48f6b2f9e2f33729c79aecc"
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
@@ -51,13 +51,13 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.4.1",
-        "commit": "a9ffc9b285c3af8ad631f9cda4851b0ffc30c5ce"
+        "tag": "v0.4.3",
+        "commit": "cb470de2cfeebeccbf76d4cc0a39ad4afc76d553"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.5.1",
-        "commit": "a29956b34d03a4591dbd0eaed9d37009ef48b8db"
+        "tag": "v0.6.0",
+        "commit": "418ec496612fb2afc853e342f0d2269b6674a2fe"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
@@ -66,8 +66,8 @@
       },
       "collection-hooks": {
         "git": "https://github.com/matb33/meteor-collection-hooks.git",
-        "tag": "v0.7.0",
-        "commit": "20a6de81f3818f112bccf67b5e1d3db342cf0b18"
+        "tag": "v0.7.2",
+        "commit": "261f61f07b371ae913463fba8964a9b93cab531b"
       },
       "jquery-ui": {
         "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
@@ -78,6 +78,21 @@
         "git": "https://github.com/G-ram/meteor-less-flat-ui",
         "branch": "master",
         "commit": "c9a8a06e88ea9b96935da2c2a6a07b8d63744ad8"
+      },
+      "iron-layout": {
+        "git": "https://github.com/EventedMind/iron-layout.git",
+        "tag": "v0.2.0",
+        "commit": "4a2d53e35ba036b0c189c7ceca34be494d4c6c97"
+      },
+      "iron-core": {
+        "git": "https://github.com/EventedMind/iron-core.git",
+        "tag": "v0.2.0",
+        "commit": "0e48b5dc50d03f01025b7b900fb5ce2f13d52cad"
+      },
+      "iron-dynamic-template": {
+        "git": "https://github.com/EventedMind/iron-dynamic-template.git",
+        "tag": "v0.2.1",
+        "commit": "4dd1185c4d9d616c9abdb3f33e4a7d5a88db7e18"
       }
     }
   }

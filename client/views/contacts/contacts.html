@@ -1,51 +1,41 @@
 <template name="contacts">
 	<p><strong>Contacts</strong></p>
-	<a href="{{ pathFor 'contacts_add' }}">
-		<button class="btn btn-hg btn-warning full-width">
-			<span class="fui-plus"></span>
+	<input class="form-control" placeholder="Add: Phone # or Email">
+	<button class="btn btn-hg btn-warning full-width top-buffer">
+		<span class="fui-plus"></span>
+	</button>
+	{{#if isNull currentUser.contactList}}
+		<div class="text-center full-width top-buffer">
+			<strong>Add some contacts.</strong>
+		</div>
+	{{else}}
+		{{#each currentUser.contactList}}
+			<a href="{{pathFor 'contact_info_view' userId=key}}">
+				<div class="row top-buffer record-container green no-padding-top">
+					<strong class="padding-left">{{this.name}}</strong>
+					<span class="fui-arrow-right pull-right contact-record-select-button"></span>
+				</div>
+			</a>
+		{{/each}}
+	{{/if}}
+</template>
+<template name="contact_info_view">
+	<img class="center-block" src="/img/icons/png/Book.png" id="contact-info-view-profile-pic"/>
+	<div class="center-text top-buffer">
+		<strong id="contact-info-view-name">{{isNullWithValue firstName "Not Specified"}} {{isNullWithValue firstName "Not Specified"}}</strong><br/>
+		<span id="contact-info-view-bussiness">{{isNullWithValue business "Not Specified"}}</span>
+	</div>
+	<strong>Email: </strong><span id="contact-info-view-email">{{isNullWithValue email "Not Specified"}}</span><br/>
+	<strong>Phone #: </strong><span id="contact-info-view-phone-number">{{isNullWithValue phoneNumber "Not Specified"}}</span>
+	<a href="{{pathFor 'contact_record_edit'}}">
+		<button class="btn btn-hg btn-danger full-width top-buffer">
+			Delete<span class="fui-cross"></span>
 		</button>
 	</a>
-	{{contact_record}}
-</template>
-<template name="contacts_add">
-	<p><strong>Add a Contact</strong></p>
-	<input type="tel" class="form-control" placeholder="Quick Add: Phone #">
 	<div class="divider"></div>
-	<div class="form-group top-buffer">
-		<table class="full-width">
-			<tr><td class="padding-right">
-				<input class="form-control" placeholder="First Name">
-			</td><td class="padding-left">
-				<input class="form-control" placeholder="Last Name">
-			</td></tr>
-			<tr><td colspan="2">
-				<div class="top-buffer">
-					<input type="email" class="form-control" placeholder="Email">
-				</div>
-			</td></tr>
-			<tr><td colspan="2">
-				<div class="top-buffer">
-					<input type="tel" class="form-control" placeholder="Phone #">
-				</div>
-			</td></tr>
-		</table>
-		<div class="top-buffer">
-			<a href="">
-				<button class="btn btn-hg btn-success full-width" id="contacts-save-button">
-					Save
-				</button>
-			</a>
-		</div>
-	</div>
-	<div class="divider"></div>
-	<div class="top-buffer">
-		<a href="javascript:history.back();">
-			<button class="btn btn-hg btn-danger full-width">
-				<span class="fui-arrow-left"></span>Back
-			</button>
-		</a>
-	</div>
-</template>
-<template name="contact_record">
-
+	<a href="javascript:history.back()">
+		<button class="btn btn-hg btn-danger full-width top-buffer">
+			<span class="fui-arrow-left"></span>Back
+		</button>
+	</a>
 </template>

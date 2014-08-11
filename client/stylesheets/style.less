@@ -11,7 +11,7 @@
 @import "@{customSheetURL}/transfer/transfer.import.less";
 @import "@{customSheetURL}/edit/edit.import.less";
 @import "@{customSheetURL}/a(firstLoad)/notification.import.less";
-
+@import "@{customSheetURL}/contacts/contacts.import.less";
 //Global modifiers
 body{
 	padding-top: 70px;
@@ -36,11 +36,24 @@ body{
 .full-width{
 	width:100%;
 }
+.half-width{
+	width:50%;
+}
+.no-top-padding{
+	padding-top: 0px;
+}
+.no-bottom-padding{
+	padding-bottom: 0px;
+}
 .no-left-padding{
 	padding-left: 0px;
 }
 .no-right-padding{
 	padding-right: 0px;
+}
+.center-text{
+	width:100%;
+	text-align:center;
 }
 .white{
 	background-color: @inverse;
@@ -53,6 +66,21 @@ body{
 }
 .red{
 	background-color: mix(@brand-danger, white, 20%);
+}
+//Change placeholder color if entered
+.entered::-webkit-input-placeholder{
+    color:@midnight-blue;
+}
+.entered:-moz-placeholder{
+    color:@midnight-blue;
+    opacity:1;
+}
+.entered::-moz-placeholder{
+    color:@midnight-blue;
+    opacity:1;
+}
+.entered:-ms-input-placeholder{
+    color:@midnight-blue;
 }
 .rotate-90{
 	-moz-transform:rotate(90deg);

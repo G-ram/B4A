@@ -3,7 +3,9 @@
 		<small>
 			Snazzy Studios &copy;2014
 			<a href="">Help</a>
-			<a href="">Logout</a>
+			{{#if currentUser}}
+				<a href="{{pathFor 'home'}}" id="footer-logout-link">Logout</a>
+			{{/if}}
 		</small>
 	</div>
 </template>
