@@ -1,8 +1,4 @@
-Template.contacts_add.events({
-	'click #contacts-save-button': function(e) {
-		Template.notification.changeAndDisplayNotificationWithHTML("Saved.","green");
-		history.back();
-	}
+Template.contacts.events({
 });
 /*Meteor.call('upsertContactListWithContactByUserId',"5Rmj8Eq2GBns7d544",function(error){
 		if(error){

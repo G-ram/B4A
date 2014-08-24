@@ -13,14 +13,14 @@
       		</button>
           <ul class="nav navbar-nav" id="navbar-back-button-container">
             <li id="navbar-back-button">
-              <a href="javascript:history.back();" id="navbar-back-button-link"><span class="fui-arrow-left" id="navbar-back-button-arrow"></span></a>
+              <a href="{{pathForBack}}" id="navbar-back-button-link"><span class="fui-arrow-left" id="navbar-back-button-arrow"></span></a>
             </li>
           </ul>
       		<a class="navbar-brand" href="{{pathFor 'home'}}">B4A<p><small id="navbar-tagline">Bank 4 All</small></p></a>
     		</div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav pull-right">
-              <li><a href="#"><span class="fui-chat"></span></a></li>
+              <li><a href="tel://216.408.4610"><span class="fui-chat"></span></a></li>
               <li><a href="" id="navbar-mobile-search-button"><span class="fui-search"></span></a></li>
               <li class="active"><a href="#">$ {{currentUser.balance}}</a></li>
           </ul>

@@ -7,6 +7,7 @@ editableFields = {
 }
 bankAccountFields = {
 	type:String,
+	balance:String,
 	bankName: String,
 	cardNumber: String,
 	securityCode: String,

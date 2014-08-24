@@ -1,4 +1,5 @@
 <template name="home">
+	{{setSession "transaction" ""}}
 	{{#unless currentUser}}
 	    Home w/out Login
 		<a href="{{ pathFor 'login' }}">

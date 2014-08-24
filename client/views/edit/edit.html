@@ -1,4 +1,5 @@
 <template name="edit">
+	{{setBackPath 'home'}}
 	<p><strong>Edit Information</strong></p>
 	<form class="form" role="form">
 		<img class="center-block" src="{{currentUser.profilePicUrl}}" id="edit-profile-pic"/>
@@ -38,71 +39,29 @@
 		</div>
 	</form>
 	<div class="divider"></div>
-	<p class="heading"><strong>Linked Accounts</strong></p>
-	<a href="{{ pathFor 'edit_add' }}">
-		<button class="btn btn-hg btn-warning full-width">
-			<span class="fui-plus"></span>
-		</button>
-	</a>
-	{{#if isNull currentUser.bankList}}
-		<div class="text-center full-width top-buffer">
-			<strong>Go add a bank account, credit card, or debit card.</strong>
-		</div>
-	{{else}}
-		{{#each currentUser.bankList}}
-			{{#if isEqual this.type "account"}}
-				<a href="{{ pathFor 'edit_account' state='revise' bankId=this.id}}">
-					<div class="row top-buffer record-container green">
-						<p class="record-recipient">{{this.bankName}}
-								<span class="fui-arrow-right pull-right edit-account-button"></span>
-						</p>
-						<p class="record-transaction-id">Routing #: <span>{{this.routingNumber}}</span></p>
-					</div>
-				</a>
-			{{else}}
-				{{#if isEqual this.type "credit"}}
-					<a href="{{ pathFor 'edit_credit' state='revise' bankId=this.id}}">
-						<div class="row top-buffer record-container yellow">
-							<p class="record-recipient">{{this.bankName}}
-								<span class="fui-arrow-right pull-right edit-account-button"></span>
-							</p>
-							<p class="record-transaction-id">Card #: <span>{{this.cardNumber}}</span></p>
-						</div>
-					</a>
-				{{else}}
-					<a href="{{ pathFor 'edit_debit' state='revise' bankId=this.id}}">
-						<div class="row top-buffer record-container red">
-							<p class="record-recipient">{{this.bankName}}
-								<span class="fui-arrow-right pull-right edit-account-button"></span>
-							</p>
-							<p class="record-transaction-id">Account #: <span>{{this.accountNumber}}</span></p>
-						</div>
-					</a>
-				{{/if}}
-			{{/if}}
-		{{/each}}
-	{{/if}}
+	{{> linked_accounts}}
 </template>
 
 <template name="edit_add">
+	{{setBackPath 'edit'}}
 	<p><strong>Add a Card/Account</strong></p>
 	<div class="container">
 		<div class="row">
-			<a href="{{ pathFor 'edit_debit' state='add'}}">
+			<a href="{{ pathFor 'edit_debit'}}">
 				<button class="btn btn-hg btn-success full-width">
 					Debit<span class="fui-arrow-right"></span>
 				</button>
 			</a>
 		</div>
 		<div class="row top-buffer">
-			<a href="{{ pathFor 'edit_credit' state='add'}}">
+			<a href="{{ pathFor 'edit_credit'}}">
 				<button class="btn btn-hg btn-warning full-width">
 					Credit<span class="fui-arrow-right"></span>
 				</button>
 			</a>
 		</div>
 		<div class="row top-buffer">
-			<a href="{{ pathFor 'edit_account' state='add'}}">
+			<a href="{{ pathFor 'edit_account'}}">
 				<button class="btn btn-hg btn-danger full-width">
 					Bank Account<span class="fui-arrow-right"></span>
 				</button>
@@ -112,29 +71,43 @@
 </template>
 
 <template name="edit_debit">
+	{{#if getSession 'bankId'}}
+		{{setBackPath 'edit'}}
+	{{else}}
+		{{setBackPath 'edit_add'}}
+	{{/if}}
 	<p><strong>{{getSession "isRevise"}} a Debit Card</strong></p>
 	<div class="form-group">
 		<table class="full-width">
 			<tr><td colspan="2">
-				<input type="tel" id="edit-debit-card-number-input" class="form-control" Value="Card #">
+				<input type="tel" id="edit-debit-card-number-input" class="form-control" placeholder="{{isNullWithValue currentUser.bankList.[0].cardNumber 'Card #'}}" value="{{isNullWithValue currentUser.bankList.[0].cardNumber ''}}">
 			</td></tr>
 			<tr><td class="padding-right">
 				<div class="top-buffer">
-					<input type="date" id="edit-debit-expiration-date-input" class="form-control" Value="Exp Date">
+					<input type="date" id="edit-debit-expiration-date-input" class="form-control" placeholder="{{isNullWithValue currentUser.bankList.[0].expirationDate 'Exp Date'}}" value="{{isNullWithValue currentUser.bankList.[0].expirationDate ''}}">
 				</div>
 			</td><td class="padding-left">
 				<div class="top-buffer">
-					<input type="tel" id="edit-debit-security-code-input" class="form-control" Value="Security Code">
+					<input type="tel" id="edit-debit-security-code-input" class="form-control" placeholder="{{isNullWithValue currentUser.bankList.[0].securityCode 'Security Code'}}" value="{{isNullWithValue currentUser.bankList.[0].securityCode ''}}">
 				</div>
 			</td></tr>
 		</table>
 		<div class="top-buffer">
-			<a href="{{ pathFor 'edit' }}">
-				<button class="btn btn-hg btn-danger full-width">
+			<a href="{{ pathFor 'edit' }}" id="edit-debit-save-button">
+				<button class="btn btn-hg btn-success full-width">
 					Confirm<span class="fui-arrow-right"></span>
 				</button>
 			</a>
 		</div>
+		{{#if getSession 'bankId'}}
+			<div class="top-buffer">
+				<a href="{{ pathFor 'edit' }}" id="edit-debit-delete-button">
+					<button class="btn btn-hg btn-danger full-width">
+						Delete<span class="fui-cross"></span>
+					</button>
+				</a>
+			</div>
+		{{/if}}
 		<div class="divider"></div>
 		<div class="top-buffer">
 			<a href="javascript:history.back();">
@@ -147,29 +120,43 @@
 </template>
 
 <template name="edit_credit">
+	{{#if getSession 'bankId'}}
+		{{setBackPath 'edit'}}
+	{{else}}
+		{{setBackPath 'edit_add'}}
+	{{/if}}
 	<p><strong>{{getSession "isRevise"}} a Credit Card</strong></p>
 	<div class="form-group">
 		<table class="full-width">
 			<tr><td colspan="2">
-				<input type="tel" id="edit-credit-card-number-input" class="form-control" Value="Card #">
+				<input type="tel" id="edit-credit-card-number-input" class="form-control" placeholder="{{isNullWithValue currentUser.bankList.[0].cardNumber 'Card #'}}" value="{{isNullWithValue currentUser.bankList.[0].cardNumber ''}}">
 			</td></tr>
 			<tr><td class="padding-right">
 				<div class="top-buffer">
-					<input type="date" id="edit-credit-expiration-date-input" class="form-control" Value="Exp Date">
+					<input type="date" id="edit-credit-expiration-date-input" class="form-control" placeholder="{{isNullWithValue currentUser.bankList.[0].expirationDate 'Exp Date'}}" value="{{isNullWithValue currentUser.bankList.[0].expirationDate ''}}">
 				</div>
 			</td><td class="padding-left">
 				<div class="top-buffer">
-					<input type="tel" id="#edit-credit-security-code-input" class="form-control" Value="Security Code">
+					<input type="tel" id="edit-credit-security-code-input" class="form-control" placeholder="{{isNullWithValue currentUser.bankList.[0].securityCode 'Security Code'}}" value="{{isNullWithValue currentUser.bankList.[0].securityCode ''}}">
 				</div>
 			</td></tr>
 		</table>
 		<div class="top-buffer">
-			<a href="{{ pathFor 'edit' }}">
-				<button class="btn btn-hg btn-danger full-width">
+			<a href="{{ pathFor 'edit' }}" id="edit-credit-save-button">
+				<button class="btn btn-hg btn-success full-width">
 					Confirm<span class="fui-arrow-right"></span>
 				</button>
 			</a>
 		</div>
+		{{#if getSession 'bankId'}}
+			<div class="top-buffer">
+				<a href="{{ pathFor 'edit' }}" id="edit-credit-delete-button">
+					<button class="btn btn-hg btn-danger full-width">
+						Delete<span class="fui-cross"></span>
+					</button>
+				</a>
+			</div>
+		{{/if}}
 		<div class="divider"></div>
 		<div class="top-buffer">
 			<a href="javascript:history.back();">
@@ -182,30 +169,44 @@
 </template>
 
 <template name="edit_account">
+	{{#if getSession 'bankId'}}
+		{{setBackPath 'edit'}}
+	{{else}}
+		{{setBackPath 'edit_add'}}
+	{{/if}}
 	<p><strong>{{getSession "isRevise"}} a Bank Account</strong></p>
 	<div class="form-group">
 		<table class="full-width">
 			<tr><td>
-				<input type="tel" id="edit-account-routing-number-input" class="form-control" value="{{currentUser.bankList.routingNumber}}">
+				<input type="tel" id="edit-account-routing-number-input" class="form-control" placeholder="{{isNullWithValue currentUser.bankList.[0].routingNumber 'Routing #'}}" value="{{isNullWithValue currentUser.bankList.[0].routingNumber ''}}">
 			</td></tr>
 			<tr><td>
 				<div class="top-buffer">
-					<input type="tel" id="edit-account-account-number-input" class="form-control" value="Account #">
+					<input type="tel" id="edit-account-account-number-input" class="form-control" placeholder="{{isNullWithValue currentUser.bankList.[0].accountNumber 'Account #'}}" value="{{isNullWithValue currentUser.bankList.[0].accountNumber ''}}">
 				</div>
 			</td></tr>
 			<tr><td>
 				<div class="top-buffer">
-					<input type="tel" class="form-control" Value="Confirm Account #">
+					<input type="tel" class="form-control" placeholder="{{isNullWithValue currentUser.bankList.[0].accountNumber 'Account #'}}" value="{{isNullWithValue currentUser.bankList.[0].accountNumber ''}}">
 				</div>
 			</td></tr>
 		</table>
 		<div class="top-buffer">
-			<a href="{{ pathFor 'edit' }}">
-				<button class="btn btn-hg btn-danger full-width">
+			<a href="{{ pathFor 'edit' }}" id="edit-account-save-button">
+				<button class="btn btn-hg btn-success full-width">
 					Confirm<span class="fui-arrow-right"></span>
 				</button>
 			</a>
 		</div>
+		{{#if getSession 'bankId'}}
+			<div class="top-buffer">
+				<a href="{{ pathFor 'edit' }}" id="edit-account-delete-button">
+					<button class="btn btn-hg btn-danger full-width">
+						Delete<span class="fui-cross"></span>
+					</button>
+				</a>
+			</div>
+		{{/if}}
 		<div class="divider"></div>
 		<div class="top-buffer">
 			<a href="javascript:history.back();">

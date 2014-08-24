@@ -7,13 +7,25 @@ Router.configure({
 //Basic Routes
 Router.map(function() {
   this.route('home', {
-    path: '/'
+    path: '/',
+    waitOn: function(){
+      return [Meteor.subscribe('userBankList'),Meteor.subscribe('userBankActivity')];
+    },
+    data: function(){
+      return Meteor.users.findOne({_id:this.userId});
+    }
   });
   this.route('login',{
     path: '/login'
   });
   this.route('transfer', {
-    path: '/transfer'
+    path: '/transfer',
+    waitOn: function(){
+      return Meteor.subscribe('userBankList');
+    },
+    data: function(){
+      return Meteor.users.findOne({_id:this.userId});
+    }
   });
   this.route('transfer_confirm', {
     path: '/transfer/confirm'
@@ -43,57 +55,64 @@ Router.map(function() {
     }
   });
   this.route('edit_add', {
-    path: '/edit/add'
+    path: '/edit/add',
+    onBeforeAction: function(){
+      beforeHooks.isRevise(Session.get("bankId"));
+    }
   });
   this.route('edit_debit', {
-    path: '/edit/:state/debit',
+    path: '/edit/debit/',
     waitOn: function(){
-      if(this.params.state == "revise"){
-        return Meteor.subscribe('userBankAdvanced',this.params.bankId);
+      if(Session.get("bankId")){
+        return Meteor.subscribe('userBankAdvanced',Session.get("bankId"));
       }
       return null;
     },
     data: function(){
-      if(this.params.state == "revise"){
-        return Meteor.users.findOne({_id:this.userId});
+      if(Session.get("bankId")){
+        return Meteor.users.findOne();
       }
       return null;
     },
-    onBeforeAction: function(){beforeHooks.isRevise(this.params.state)}
+    onBeforeAction: function(){
+      beforeHooks.isRevise(Session.get("bankId"));
+    }
   });
   this.route('edit_credit', {
-    path: "/edit/:state/debit",
+    path: "/edit/credit/",
     waitOn: function(){
-      if(this.params.state == "revise"){
-        return Meteor.subscribe('userBankAdvanced',this.params.bankId);
+      if(Session.get("bankId")){
+        return Meteor.subscribe('userBankAdvanced',Session.get("bankId"));
       }
       return null;
     },
     data: function(){
-      if(this.params.state == "revise"){
-        return Meteor.users.findOne({_id:this.userId});
+      if(Session.get("bankId")){
+        return Meteor.users.findOne();
       }
       return null;
     },
-    onBeforeAction: function(){beforeHooks.isRevise(this.params.state)}
+    onBeforeAction: function(){
+      beforeHooks.isRevise(Session.get("bankId"));
+    }
   });
   this.route('edit_account', {
-    path: '/edit/:state/account',
+    path: '/edit/account/',
     waitOn: function(){
-      if(this.params.state == "revise"){
-        return Meteor.subscribe('userBankAdvanced',this.params.bankId);
+      if(Session.get("bankId")){
+        return Meteor.subscribe('userBankAdvanced',Session.get("bankId"));
       }
       return null;
     },
     data: function(){
-      if(this.params.state == "revise"){
-        console.log("CALLED");
-        console.log(Meteor.users.findOne({_id:this.userId}));
-        return Meteor.users.findOne({_id:this.userId});
+      if(Session.get("bankId")){
+        return Meteor.users.findOne();
       }
       return null;
     },
-    onBeforeAction: function(){beforeHooks.isRevise(this.params.state)}
+    onBeforeAction: function(){
+      beforeHooks.isRevise(Session.get("bankId"));
+    }
   });
 });
 
@@ -105,8 +124,8 @@ var beforeHooks = {
           pause();
         }
     },
-    isRevise: function(state){
-      if(state == "revise"){
+    isRevise: function(bankId){
+      if(bankId){
         Session.set("isRevise","Revise");
       }else{
         Session.set("isRevise","Add");

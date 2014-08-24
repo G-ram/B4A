@@ -48,7 +48,7 @@ Meteor.publish("userBankBasic", function(){
 Meteor.publish("userBankList",function(){
 	if(this.userId){
 		return Meteor.users.find({_id: this.userId},
-							{fields:{'bankList': 1}});
+							{fields:{'bankList.bankId': 1,"bankList.type":1,"bankList.bankName":1,"bankList.routingNumber":1,"bankList.cardNumber":1}});
 	}else{
 		this.ready();
 	}
@@ -57,14 +57,7 @@ Meteor.publish("userBankList",function(){
 Meteor.publish("userBankAdvanced", function(bankId){
 	check(bankId,String);
 	if(this.userId){
-		return Meteor.users.find({_id: this.userId,
-					"bankList": {
-    					$elemMatch: {"id": bankId}}
-   					},{fields:{'bankList.$.cardNumber': 1,
-   					'bankList.$.routingNumber':1,
-   					'bankList.$.accountNumber':1,
-   					'bankList.$.securityCode':1,
-   					'bankList.$.expirationDate':1}});
+		return Meteor.users.find({"bankList.bankId": bankId},{fields: {"bankList.$":1}});
 	}else{
 		this.ready();
 	}

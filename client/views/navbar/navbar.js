@@ -19,7 +19,7 @@ Template.navbar.search = function(){
 	if(!$("#navbar-mobile-search-button").hasClass('clicked')){
 		$("#navbar-mobile-search-input-container").fadeIn( "slow");
 		$("#navbar-mobile-search-input").focus();
-		$("#navbar-mobile-search-button").animate({left: "+=90px",},1.0);
+		$("#navbar-mobile-search-button").animate({left: "+=70px",},1.0);
 		$("#navbar-mobile-search-button").addClass("clicked");
 	}else{
 
@@ -28,6 +28,6 @@ Template.navbar.search = function(){
 Template.navbar.hideSearch = function(){
 	$("#navbar-mobile-search-input-container").fadeOut( "slow");
 	$("#navbar-mobile-search-input").blur();
-	$("#navbar-mobile-search-button").animate({left: "-=90px",},1.0);
+	$("#navbar-mobile-search-button").animate({left: "-=70px",},1.0);
 	$("#navbar-mobile-search-button").removeClass("clicked");
 }

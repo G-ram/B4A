@@ -1,46 +1,53 @@
 <template name="transfer">
+	{{setBackPath 'home'}}
 	<p><strong>Send/Pay</strong></p>
 	<form class="form-inline" role="form">
 		<table class="full-width">
 			<tr><td class="padding-right">
 				<div class="dropdown">
 					<button class="btn btn-primary dropdown-toggle" id="transfer-currency-dropdown-button" data-toggle="dropdown">
-						<span id="transfer-currency-dropdown-current">$</span>
+						<span id="transfer-currency-dropdown-current">{{getCurrencySymbol}}</span>
 						<p id="transfer-currency-dropdown-caret">
 							<small><span class="caret"></span></small>
 						</p>
 					</button>
 					<span class="dropdown-arrow dropdown-arrow-inverse"></span>
-					<ul class="dropdown-menu dropdown-inverse">
-						<li><a href="#fakelink">$</a></li>
-						<li><a href="#fakelink">&euro;</a></li>
-						<li><a href="#fakelink">&yen;</a></li>
+					<ul class="dropdown-menu dropdown-inverse" id="transfer-currency-dropdown">
+						{{#each getKeyAndValue returnSupportedCurrencies}}
+							<li><a href="#fakelink" class="transfer-currency-link" currencyKey="{{key}}">{{toHtml value}}</a></li>
+						{{/each}}
 					</ul>
 				</div>
 			</td><td class="col-xs-8 padding-right padding-left">
-				<input type="text" class="form-control input-hg" placeholder="00" style="width:100%;"/>
+				<input type="text" class="form-control input-hg full-width" id="transfer-dollars-input" placeholder="00" value="{{isNullWithValue returnTransactionDollars ''}}"/>
 			</td><td>
 				<p id="transfer-decimal">.</p>
 			</td><td class="col-xs-4 padding-left no-right-padding">
-				<input type="text" class="form-control input-hg" placeholder="00" style="width:100%;"/>
+				<input type="text" class="form-control input-hg full-width" id="transfer-cents-input" placeholder="00" value="{{isNullWithValue returnTransactionCents ''}}"/>
 			</td></tr>
 		</table>
 		<div class="top-buffer">
 			<div class="btn btn-hg btn-success full-width" id="transfer-from-button">
-				<span class="pull-left">From: </span>
+				<span class="pull-left">From: 
+					<span id="transfer-from-span">
+						{{isNullWithValues returnTransaction.from.bankId "No Bank Name" ""}}
+					</span>
+				</span>
 				<span class="fui-arrow-right pull-right rotate-90"></span>
 			</div>
 		</div>
 		<div class="top-buffer">
-			<div class="btn btn-hg btn-warning full-width">
-				<span class="pull-left">To: </span>
-				<span class="fui-arrow-right pull-right rotate-90" id="transfer-to-choose-button"></span>
-				<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-				<span class="fui-plus pull-right" id="transfer-to-plus-button"></span>
+			<div class="btn btn-hg btn-warning full-width" id="transfer-to-button">
+				<span class="pull-left">To: 
+					<span id="transfer-from-span">
+						{{isNullWithValues returnTransaction.to.bankId "No Bank Name" ""}}
+					</span>
+				</span>
+				<span class="fui-arrow-right pull-right rotate-90"></span>
 			</div>
 		</div>
 		<div class="top-buffer">
-			<a href="{{ pathFor 'transfer_confirm' }}">
+			<a href="{{ pathFor 'transfer_confirm' }}" id="transfer-confirm-button">
 				<button class="btn btn-hg btn-danger full-width">
 					Confirm<span class="fui-arrow-right"></span>
 				</button>
@@ -49,7 +56,7 @@
 	</form>
 	<div class="divider"></div>
 	<div class="top-buffer">
-		<a href="javascript:history.back();">
+		<a href="{{pathForBack}}">
 			<button class="btn btn-hg btn-danger full-width">
 				<span class="fui-cross"></span>Cancel
 			</button>
@@ -57,63 +64,46 @@
 	</div>
 	<div class="transfer-popup-container" id="transfer-list-accounts-container">
 		<a href="" class="transfer-close-button"><span class="fui-cross"></span></a>
-		<div class="container">
-			{{> accounts_popup}}
+		<div class="container top-buffer">
+			{{> linked_accounts}}
 		</div>
 	</div>
 	<div class="transfer-popup-container" id="transfer-list-contacts-container">
 		<a href="" class="transfer-close-button"><span class="fui-cross"></span></a>
-		<div class="container">
+		<div class="container top-buffer">
 			{{> contacts}}
-		</div>
-	</div>
-	<div class="transfer-popup-container" id="transfer-add-contact-container">
-		<a href="" class="transfer-close-button"><span class="fui-cross"></span></a>
-		<div class="container">
-			{{> contacts_add}}
 		</div>
 	</div>
 </template>
 <template name="transfer_confirm">
-
-</template>
-
-<template name="accounts_popup">
-	<p><strong>Select an Account</strong></p>
-	{{> linked_debit}}
-	{{> linked_credit}}
-	{{> linked_account}}
-</template>
-
-<template name="linked_debit">
-	<a href="">
-		<div class="row top-buffer btn-success record-container">
-			<p class="record-recipient">Huntington Bank
-					<span class="fui-arrow-right pull-right edit-account-button"></span>
-			</p>
-			<p class="record-transaction-id">Card #: <span>************7654</span></p>
+	{{setBackPath 'transfer'}}
+	<p><strong>Confirm Transfer</strong></p>
+	<div id="transfer-confirm-amount-container">
+		<p id="transfer-confirm-amount">{{getCurrencySymbol}} {{returnTransaction.amount}}</p>
+	</div>
+	<div class="top-buffer">
+		<div class="btn btn-hg btn-success full-width">
+			<span class="pull-left">From: {{isNullWithValue returnTransaction.from.bankName 'No Bank Name'}}</span>
 		</div>
-	</a>
-</template>
-
-<template name="linked_credit">
-	<a href="">
-		<div class="row top-buffer btn-warning record-container">
-			<p class="record-recipient">Visa
-				<span class="fui-arrow-right pull-right edit-account-button"></span>
-			</p>
-			<p class="record-transaction-id">Card #: <span>************7654</span></p>
+	</div>
+	<div class="top-buffer">
+		<div class="btn btn-hg btn-warning full-width" id="transfer-to-button">
+			<span class="pull-left">To: {{isNullWithValue returnTransaction.from.bankName 'No Bank Name'}}</span>
 		</div>
-	</a>
-</template>
-
-<template name="linked_account">
-	<a href="">
-		<div class="row top-buffer btn-danger record-container">
-			<p class="record-recipient">Huntington Bank
-				<span class="fui-arrow-right pull-right edit-account-button"></span>
-			</p>
-			<p class="record-transaction-id">Account #: <span>*********7654</span></p>
-		</div>
-	</a>
+	</div>
+	<div class="top-buffer">
+		<a href="{{ pathFor 'home' }}" id="transfer-confirm-confirm-button">
+			<button class="btn btn-hg btn-danger full-width">
+				Confirm<span class="fui-arrow-right"></span>
+			</button>
+		</a>
+	</div>
+	<div class="divider"></div>
+	<div class="top-buffer">
+		<a href="{{pathForBack}}">
+			<button class="btn btn-hg btn-danger full-width">
+				<span class="fui-arrow-left"></span>Back
+			</button>
+		</a>
+	</div>
 </template>

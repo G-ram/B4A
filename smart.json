@@ -1,6 +1,5 @@
 {
   "packages": {
-    "iron-router": {},
     "spin": {},
     "bower": {},
     "moment": {},
@@ -11,9 +10,11 @@
     "blaze-layout": {},
     "collection-hooks": {},
     "jquery-ui": {},
-    "less-flat-ui":{
-        "git": "https://github.com/G-ram/meteor-less-flat-ui"
-    }
+    "less-flat-ui": {
+      "git": "https://github.com/G-ram/meteor-less-flat-ui"
+    },
+    "phone": {},
+    "collectionFS": {}
   },
   "bower": {}
 }

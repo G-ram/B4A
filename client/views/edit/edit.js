@@ -1,10 +1,17 @@
 Template.edit.events({
 	'click #edit-save-button': function(e) {
 		Template.edit.updatePersonalInformation();
+	},
+	'click #linked-accounts-add-account-button': function(e) {
+		Session.set("bankId",false);
+	},
+	'click .linked-accounts-account-record': function(e){
+		Session.set("bankId",e.currentTarget.getAttribute("bankId"));
+		Router.go(e.currentTarget.getAttribute("editPath"));
 	}
 });
 Template.edit.updatePersonalInformation = function(){
-	/*Meteor.call('updateFields',{
+	Meteor.call('updateFields',{
 		firstName:$("#edit-first-name-input").val(),
 		lastName:$("#edit-last-name-input").val(),
 		business:$("#edit-business-input").val(),
@@ -17,25 +24,14 @@ Template.edit.updatePersonalInformation = function(){
 		}else{
 			Template.notification.changeAndDisplayNotificationWithHTML("Saved.","green");
 		}
-	});*/
-	Meteor.call('upsertAccountWithObject',{
-		type:"account",
-		bankName:"JP Morgan Chase",
-		routingNumber:"123",//$("#edit-account-routing-number-input").val(),
-		accountNumber:"1234567890",//$("#edit-account-account-number-input").val(),
-		},function(error){
-		if(error){
-			console.log(error);
-			Template.notification.changeAndDisplayNotificationWithHTML("Something went wrong. :-(","red");
-		}else{
-			Template.notification.changeAndDisplayNotificationWithHTML("Saved.","green");
-		}
 	});
-	Meteor.call('consoleUser');
-}
+};
 Template.edit_account.events({
 	'click #edit-account-save-button': function(e){
 		Template.edit_account.bankAccount();
+	},
+	'click #edit-account-delete-button':function(e){
+		Template.edit_account.deleteBankAccount();
 	}
 });
 Template.edit_account.bankAccount = function(){
@@ -43,6 +39,7 @@ Template.edit_account.bankAccount = function(){
 		type:"account",
 		routingNumber:$("#edit-account-routing-number-input").val(),
 		accountNumber:$("#edit-account-account-number-input").val(),
+		bankId:Session.get("bankId"),
 		},function(error){
 		if(error){
 			console.log(error);
@@ -51,10 +48,23 @@ Template.edit_account.bankAccount = function(){
 			Template.notification.changeAndDisplayNotificationWithHTML("Saved.","green");
 		}
 	});
-}
+};
+Template.edit_account.deleteBankAccount = function(){
+	Meteor.call('deleteAccountWithId',Session.get('bankId'),function(error){
+		if(error){
+			console.log(error);
+			Template.notification.changeAndDisplayNotificationWithHTML("Something went wrong. :-(","red");
+		}else{
+			Template.notification.changeAndDisplayNotificationWithHTML("Deleted.","yellow");
+		}
+	});
+};
 Template.edit_credit.events({
 	'click #edit-credit-save-button': function(e){
 		Template.edit_credit.creditCard();
+	},
+	'click #edit-credit-delete-button':function(e){
+		Template.edit_credit.deleteCreditCard();	
 	}
 });
 Template.edit_credit.creditCard = function(){
@@ -63,6 +73,7 @@ Template.edit_credit.creditCard = function(){
 		cardNumber:$("#edit-credit-card-number-input").val(),
 		expirationDate:$("#edit-credit-expiraton-date-input").val(),
 		securityCode:$("#edit-credit-security-code-input").val(),
+		bankId:Session.get("bankId"),
 		},function(error){
 		if(error){
 			console.log(error);
@@ -71,10 +82,23 @@ Template.edit_credit.creditCard = function(){
 			Template.notification.changeAndDisplayNotificationWithHTML("Saved.","green");
 		}
 	});
-}
+};
+Template.edit_credit.deleteCreditCard = function(){
+	Meteor.call('deleteAccountWithId',Session.get('bankId'),function(error){
+		if(error){
+			console.log(error);
+			Template.notification.changeAndDisplayNotificationWithHTML("Something went wrong. :-(","red");
+		}else{
+			Template.notification.changeAndDisplayNotificationWithHTML("Deleted.","yellow");
+		}
+	});
+};
 Template.edit_debit.events({
 	'click #edit-debit-save-button': function(e){
 		Template.edit_debit.debitCard();
+	},
+	'click #edit-debit-delete-button':function(e){
+		Template.edit_debit.deleteDebitCard();
 	}
 });
 Template.edit_debit.debitCard = function(){
@@ -83,6 +107,7 @@ Template.edit_debit.debitCard = function(){
 		cardNumber:$("#edit-debit-card-number-input").val(),
 		expirationDate:$("#edit-debit-expiraton-date-input").val(),
 		securityCode:$("#edit-debit-security-code-input").val(),
+		bankId:Session.get("bankId"),
 		},function(error){
 		if(error){
 			console.log(error);
@@ -91,4 +116,14 @@ Template.edit_debit.debitCard = function(){
 			Template.notification.changeAndDisplayNotificationWithHTML("Saved.","green");
 		}
 	});
-}
+};
+Template.edit_debit.deleteDebitCard = function(){
+	Meteor.call('deleteAccountWithId',Session.get('bankId'),function(error){
+		if(error){
+			console.log(error);
+			Template.notification.changeAndDisplayNotificationWithHTML("Something went wrong. :-(","red");
+		}else{
+			Template.notification.changeAndDisplayNotificationWithHTML("Deleted.","yellow");
+		}
+	});
+};

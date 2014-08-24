@@ -15,3 +15,6 @@ less-flat-ui
 iron-router
 audit-argument-checks
 service-configuration
+phone
+collectionFS
+cfs-gridfs

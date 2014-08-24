@@ -2,31 +2,70 @@
 	<div class="row">
 		<div class="divider"></div>
 		<p class="heading"><strong>Activity</strong></p>
-		<!--{{{#if isNull currentUser.contactList}}-->
-		<div class="text-center full-width top-buffer">
-			<strong>No activity yet.</strong>
-		</div>
-		<!--{{else}}
-			{{#each getKeyAndValue currentUser.contactList}}
-				<a href="{{pathFor 'contact_info_view'}}">
-					<div class="row top-buffer record-container green no-padding-top">
-						<strong class="padding-left">{{value}}</strong>
-						<span class="fui-arrow-right pull-right contact-record-select-button"></span>
-					</div>
-				</a>
+		{{#if isNull currentUser.bankActivity}}
+			<div class="text-center full-width top-buffer">
+				<strong>No activity yet.</strong>
+			</div>
+		{{else}}
+			{{#each currentUser.bankActivity}}
+				<div class="row top-buffer green record-container">
+					<p class="record-recipient">
+						{{isNullWithValue this.to.userName 'No Name'}} - 
+						<span class="record-date">{{dateToMDY this.dateMade}}</span>
+						<span class="pull-right record-amount">
+							${{isNullWithValue this.amount 'No Amoount'}}
+						</span>
+					</p>
+					<p class="record-transaction-id">Trans #: <span>{{this.transactionId}}</span></p>
+				</div>
 			{{/each}}
 			<div class="divider"></div>
-		{{/if}}-->
+		{{/if}}
 	</div>
 </template>
-<template name="activity_sidebar">
-	<div class="row">
-
-	</div>
-</template>
-<template name="activity_record">
-	<div class="row top-buffer green record-container">
-		<p class="record-recipient">Graham Gobieski - <span class="record-date">5/21/14</span><span class="pull-right record-amount">$0.00</span></p>
-		<p class="record-transaction-id">Trans #: <span>45678900987654</span></p>
-	</div>
+<template name="linked_accounts">
+	<p class="heading"><strong>Linked Accounts</strong></p>
+	<a href="{{ pathFor 'edit_add' }}" id="linked-accounts-add-account-button">
+		<button class="btn btn-hg btn-warning full-width">
+			<span class="fui-plus"></span>
+		</button>
+	</a>
+	{{#if isNull currentUser.bankList}}
+		<div class="text-center full-width top-buffer">
+			<strong>Go add a bank account, credit card, or debit card.</strong>
+		</div>
+	{{else}}
+		{{#each currentUser.bankList}}
+			{{#if isEqual this.type "account"}}
+				<a class="linked-accounts-account-record" bankId="{{this.bankId}}" bankName="{{this.bankName}}" editPath="{{pathFor 'edit_account'}}">
+					<div class="row top-buffer record-container red">
+						<p class="record-recipient">{{isNullWithValue this.bankName 'No Bank Name'}}
+								<span class="fui-arrow-right pull-right linked-accounts-account-button"></span>
+						</p>
+						<p class="record-transaction-id">Routing #: <span>{{this.routingNumber}}</span></p>
+					</div>
+				</a>
+			{{else}}
+				{{#if isEqual this.type "credit"}}
+					<a class="linked-accounts-account-record" bankId="{{this.bankId}}" bankName="{{this.bankName}}" editPath="{{pathFor 'edit_credit'}}">
+						<div class="row top-buffer record-container yellow">
+							<p class="record-recipient">{{isNullWithValue this.bankName 'No Bank Name'}}
+								<span class="fui-arrow-right pull-right linked-accounts-account-button"></span>
+							</p>
+							<p class="record-transaction-id">Card #: <span>{{this.cardNumber}}</span></p>
+						</div>
+					</a>
+				{{else}}
+					<a class="linked-accounts-account-record" bankId="{{this.bankId}}" bankName="{{this.bankName}}" editPath="{{pathFor 'edit_debit'}}">
+						<div class="row top-buffer record-container green">
+							<p class="record-recipient">{{isNullWithValue this.bankName 'No Bank Name'}}
+								<span class="fui-arrow-right pull-right linked-accounts-account-button"></span>
+							</p>
+							<p class="record-transaction-id">Card #: <span>{{this.cardNumber}}</span></p>
+						</div>
+					</a>
+				{{/if}}
+			{{/if}}
+		{{/each}}
+	{{/if}}
 </template>

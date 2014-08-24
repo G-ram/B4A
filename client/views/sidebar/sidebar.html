@@ -20,9 +20,11 @@
 			</button>
 		</a>
 		<div id="sidebar-edit-account">
-			<p class="sidebar-edit-account-sub">Huntington National Bank: ************4567 <span class="pull-right">$0.00</span></p>
-			<p class="sidebar-edit-account-sub">JP Morgan Chase: ************9677 <span class="pull-right">$0.00</span></p>
-			<p class="sidebar-edit-account-sub">Bank of America: ************9412</p>
+		{{#each currentUser.bankList}}
+			<p class="sidebar-edit-account-sub">
+				{{isNullWithValue this.bankName 'No Bank Name'}}: {{isNullWithValue this.cardNumber ''}}{{isNullWithValue this.routingNumber ''}} 
+			<span class="pull-right">{{isNullWithValue this.currency '$'}} {{isNullWithValue this.amount '0.00'}}</span></p>
+		{{/each}}
 		</div>
 	</div>
 </template>
