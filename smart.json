@@ -14,7 +14,8 @@
       "git": "https://github.com/G-ram/meteor-less-flat-ui"
     },
     "phone": {},
-    "collectionFS": {}
+    "collectionFS": {},
+    "lunr": {}
   },
   "bower": {}
 }

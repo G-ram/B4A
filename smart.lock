@@ -17,7 +17,8 @@
         "branch": "master"
       },
       "phone": {},
-      "collectionFS": {}
+      "collectionFS": {},
+      "lunr": {}
     },
     "packages": {
       "spin": {
@@ -85,6 +86,11 @@
         "tag": "v0.4.8",
         "commit": "fea890b1e27799ccc9f71046748fb23a84330a16"
       },
+      "lunr": {
+        "git": "https://github.com/electricjesus/meteor-lunr.git",
+        "tag": "v0.4.2.2",
+        "commit": "68bd86d6f5b9f37f13e35bad7e47ad025b54a722"
+      },
       "cfs-base-package": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-base-package.git",
         "tag": "v0.0.24",
@@ -132,8 +138,8 @@
       },
       "http-methods": {
         "git": "https://github.com/CollectionFS/Meteor-http-methods.git",
-        "tag": "v0.0.22",
-        "commit": "5b0f7723f49436b8a0a930f284ed05f0b26021fe"
+        "tag": "v0.0.23",
+        "commit": "8e555d953f1a2dfdfe983e58b65bd6054a840dde"
       },
       "numeral": {
         "git": "https://github.com/vsivsi/meteor-numeral.git",

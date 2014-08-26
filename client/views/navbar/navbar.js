@@ -13,6 +13,13 @@ Template.navbar.events({
 	},
 	'click #navbar-mobile-search-cancel-button': function(e){
 		Template.navbar.hideSearch();
+	},
+	'keypress #navbar-mobile-search-input': function(e){
+		if($("#navbar-mobile-search-input").val().length>2){
+			Meteor.subscribe('searchUsers',$("#navbar-mobile-search-input").val()).forEach(function(doc){ 
+				console.log(doc.firstName);
+			});
+		}
 	}
 });
 Template.navbar.search = function(){

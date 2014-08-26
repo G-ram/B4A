@@ -47,3 +47,10 @@
 /cfs-filesystem
 /reactive-property
 /micro-queue
+/easy-search
+/lunr
+/meds
+/munit
+/chai
+/sinon
+/elasticity
