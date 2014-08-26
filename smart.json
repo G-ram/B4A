@@ -2,8 +2,8 @@
   "packages": {
     "spin": {},
     "bower": {},
+    "iron-router": {},
     "moment": {},
-    "fast-render": {},
     "apm": {},
     "collection2": {},
     "simple-schema": {},
@@ -14,8 +14,8 @@
       "git": "https://github.com/G-ram/meteor-less-flat-ui"
     },
     "phone": {},
-    "collectionFS": {},
-    "lunr": {}
+    "lunr": {},
+    "cfs-gridfs": {}
   },
   "bower": {}
 }

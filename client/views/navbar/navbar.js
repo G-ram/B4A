@@ -16,9 +16,9 @@ Template.navbar.events({
 	},
 	'keypress #navbar-mobile-search-input': function(e){
 		if($("#navbar-mobile-search-input").val().length>2){
-			Meteor.subscribe('searchUsers',$("#navbar-mobile-search-input").val()).forEach(function(doc){ 
-				console.log(doc.firstName);
-			});
+			Meteor.subscribe('searchUsers',$("#navbar-mobile-search-input").val())//.forEach(function(doc){ 
+				//console.log(doc.firstName);
+			//});
 		}
 	}
 });

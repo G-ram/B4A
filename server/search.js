@@ -25,6 +25,7 @@ Meteor.publish("searchUsers", function(query){
       for(var i = 0; i < userArray.length;i++){
         idArray[idArray.length] = userArray[i].ref;
       }
+      console.log(idArray);
       return Meteor.users.find({_id: {$in: idArray}},
                                {fields: {'firstName': 1, 'lastName': 1, 'business': 1,'profilePicUrl': 1}});
     }else{
