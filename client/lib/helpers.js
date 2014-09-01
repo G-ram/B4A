@@ -6,7 +6,7 @@ UI.registerHelper('isEqual', function(value1, value2){
     return false;
 });
 UI.registerHelper('isNull', function(value){
-    if(value == 0 || value == "0" || value == "null" || value == null || value == ""){
+    if(value == 0 || value == "0" || value == "null" || value == null || value == "" || value.length == 0){
         return true;
     }
     return false;
@@ -23,13 +23,13 @@ UI.registerHelper('getSession', function(value){
     return Session.get(value);
 });
 UI.registerHelper('isNullWithValue', function(value,placeholder){
-	if(value == 0 || value == "0" || value == "null" || value == null || value == ""){
+	if(value == 0 || value == "0" || value == "null" || value == null || value == "" || value.length == 0){
 		return placeholder;
 	}
 	return value;
 });
 UI.registerHelper('isNullWithValues', function(value,placeholder1, placeholder2){
-    if(value == 0 || value == "0" || value == "null" || value == null || value == ""){
+    if(value == 0 || value == "0" || value == "null" || value == null || value == "" || value.length == 0){
         return placeholder2;
     }
     return placeholder1;
@@ -40,6 +40,12 @@ UI.registerHelper('getKeyAndValue', function(context, options) {
     result.push({key:key, value:value});
   })
   return result;
+});
+UI.registerHelper('getLengthOfSessionArray', function(value) {
+  return Session.get(value).length;
+});
+UI.registerHelper('getPartOfSessionArray', function(value,part){
+    return Session.get(value)[part];
 });
 UI.registerHelper('toHtml', function(value){
     return new Handlebars.SafeString(value);

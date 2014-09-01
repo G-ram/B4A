@@ -96,9 +96,9 @@ Meteor.methods({
 	upsertContactListByUserId: function(userId){
 		check(userId,String);
 		if(Meteor.users.findOne({_id:userId})){
-			var user = Meteor.users.findOne({_id:userId},{fields: {'firstName': 1, 'lastName': 1, 'profilePic':1}});
+			var user = Meteor.users.findOne({_id:userId},{fields: {'firstName': 1, 'lastName': 1, 'profilePicUrl':1}});
 			var name = user.firstName + " " + user.lastName;
-			var fields = {"_id":userId,"name":name,"profilePic":user.profilePic};
+			var fields = {"_id":userId,"name":name,"profilePicUrl":user.profilePic};
 			Meteor.users.update(this.userId,{$addToSet: {"contactList": fields}},
 			function(error){
 				if(error){throw error;}

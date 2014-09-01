@@ -8,20 +8,23 @@
 			</div>
 		{{else}}
 			{{#each currentUser.bankActivity}}
-				<div class="row top-buffer green record-container">
-					<p class="record-recipient">
-						{{isNullWithValue this.to.userName 'No Name'}} - 
-						<span class="record-date">{{dateToMDY this.dateMade}}</span>
-						<span class="pull-right record-amount">
-							${{isNullWithValue this.amount 'No Amoount'}}
-						</span>
-					</p>
-					<p class="record-transaction-id">Trans #: <span>{{this.transactionId}}</span></p>
-				</div>
+				{{>activity_record}}
 			{{/each}}
 			<div class="divider"></div>
 		{{/if}}
 	</div>
+</template>
+<template name="activity_record">
+  <div class="row top-buffer green record-container">
+    <p class="record-recipient">
+      {{isNullWithValue this.to.userName 'No Name'}} - 
+      <span class="record-date">{{dateToMDY this.dateMade}}</span>
+      <span class="pull-right record-amount">
+        ${{isNullWithValue this.amount 'No Amoount'}}
+      </span>
+    </p>
+    <p class="record-transaction-id">Trans #: <span>{{this.transactionId}}</span></p>
+  </div>
 </template>
 <template name="linked_accounts">
 	<p class="heading"><strong>Linked Accounts</strong></p>
@@ -36,36 +39,39 @@
 		</div>
 	{{else}}
 		{{#each currentUser.bankList}}
-			{{#if isEqual this.type "account"}}
-				<a class="linked-accounts-account-record" bankId="{{this.bankId}}" bankName="{{this.bankName}}" editPath="{{pathFor 'edit_account'}}">
-					<div class="row top-buffer record-container red">
-						<p class="record-recipient">{{isNullWithValue this.bankName 'No Bank Name'}}
-								<span class="fui-arrow-right pull-right linked-accounts-account-button"></span>
-						</p>
-						<p class="record-transaction-id">Routing #: <span>{{this.routingNumber}}</span></p>
-					</div>
-				</a>
-			{{else}}
-				{{#if isEqual this.type "credit"}}
-					<a class="linked-accounts-account-record" bankId="{{this.bankId}}" bankName="{{this.bankName}}" editPath="{{pathFor 'edit_credit'}}">
-						<div class="row top-buffer record-container yellow">
-							<p class="record-recipient">{{isNullWithValue this.bankName 'No Bank Name'}}
-								<span class="fui-arrow-right pull-right linked-accounts-account-button"></span>
-							</p>
-							<p class="record-transaction-id">Card #: <span>{{this.cardNumber}}</span></p>
-						</div>
-					</a>
-				{{else}}
-					<a class="linked-accounts-account-record" bankId="{{this.bankId}}" bankName="{{this.bankName}}" editPath="{{pathFor 'edit_debit'}}">
-						<div class="row top-buffer record-container green">
-							<p class="record-recipient">{{isNullWithValue this.bankName 'No Bank Name'}}
-								<span class="fui-arrow-right pull-right linked-accounts-account-button"></span>
-							</p>
-							<p class="record-transaction-id">Card #: <span>{{this.cardNumber}}</span></p>
-						</div>
-					</a>
-				{{/if}}
-			{{/if}}
+			{{> linked_account_record}}
 		{{/each}}
 	{{/if}}
+</template>
+<template name="linked_account_record">
+{{#if isEqual this.type "account"}}
+	<a class="linked-accounts-account-record" bankId="{{this.bankId}}" bankName="{{this.bankName}}" editPath="{{pathFor 'edit_account'}}">
+		<div class="row top-buffer record-container red">
+			<p class="record-recipient">{{isNullWithValue this.bankName 'No Bank Name'}}
+					<span class="fui-arrow-right pull-right linked-account-record-account-button"></span>
+			</p>
+			<p class="record-transaction-id">Routing #: <span>{{this.routingNumber}}</span></p>
+		</div>
+	</a>
+{{else}}
+	{{#if isEqual this.type "credit"}}
+		<a class="linked-accounts-account-record" bankId="{{this.bankId}}" bankName="{{this.bankName}}" editPath="{{pathFor 'edit_credit'}}">
+			<div class="row top-buffer record-container yellow">
+				<p class="record-recipient">{{isNullWithValue this.bankName 'No Bank Name'}}
+					<span class="fui-arrow-right pull-right linked-account-record-account-button"></span>
+				</p>
+				<p class="record-transaction-id">Card #: <span>{{this.cardNumber}}</span></p>
+			</div>
+		</a>
+	{{else}}
+		<a class="linked-accounts-account-record" bankId="{{this.bankId}}" bankName="{{this.bankName}}" editPath="{{pathFor 'edit_debit'}}">
+			<div class="row top-buffer record-container green">
+				<p class="record-recipient">{{isNullWithValue this.bankName 'No Bank Name'}}
+					<span class="fui-arrow-right pull-right linked-account-record-account-button"></span>
+				</p>
+				<p class="record-transaction-id">Card #: <span>{{this.cardNumber}}</span></p>
+			</div>
+		</a>
+	{{/if}}
+{{/if}}
 </template>

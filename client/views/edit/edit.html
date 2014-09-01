@@ -2,7 +2,7 @@
 	{{setBackPath 'home'}}
 	<p><strong>Edit Information</strong></p>
 	<form class="form" role="form">
-		<img class="center-block" src="{{currentUser.profilePicUrl}}" id="edit-profile-pic"/>
+		<img class="center-block" src="{{isNullWithValue currentUser.profilePicUrl '/img/icons/png/Book.png'}}" id="edit-profile-pic"/>
 		<br/>
 		<div class="form-group">
 			<table class="full-width">

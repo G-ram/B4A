@@ -26,6 +26,7 @@
           </ul>
         </div>
   	</nav>
+    {{> search_results}}
   {{else}}
     <nav class="navbar navbar-inverse navbar-fixed-top hidden-sm hidden-md hidden-lg" role="navigation">
         <div class="navbar-header">
@@ -36,4 +37,56 @@
         </div>
     </nav>
   {{/if}}
+</template>
+
+<template name ="search_results">
+  <div id="search-results-container">
+    {{#each getSearchResultFromSession "searchResults"}}
+      {{#if isEqual key 'users'}}
+        {{#if isNull value}}{{else}}
+          <strong class="white-text padding-left">Users</strong>
+        {{/if}}
+        {{#each getPartOfSessionArray "searchResults" "users"}}
+          {{> user_record}}
+        {{/each}}
+      {{/if}}
+      {{#if isEqual key 'contacts'}}
+        {{#if isNull value}}{{else}}
+          <strong class="white-text padding-left">Contacts</strong>
+        {{/if}}
+        {{#each getPartOfSessionArray "searchResults" "contacts"}}
+          {{>contact_record}}
+        {{/each}}
+      {{/if}}
+      {{#if isEqual key 'banks'}}
+        {{#if isNull value}}{{else}}
+          <strong class="white-text padding-left">Bank Accounts</strong>
+        {{/if}}
+        {{#each getPartOfSessionArray "searchResults" "banks"}}
+          {{> linked_account_record}}
+        {{/each}}
+      {{/if}}
+      {{#if isEqual key 'activity'}}
+        {{#if isNull value}}{{else}}
+          <strong class="white-text padding-left">Activity</strong>
+        {{/if}}
+        {{#each getPartOfSessionArray "searchResults" "activity"}}
+          {{>activity_record}}
+        {{/each}}
+      {{/if}}
+  {{/each}}
+    <div class="text-center full-width">
+      <small class="white-text">Search Result(s)</small>
+    </div>
+  </div>
+</template>
+<template name="user_record">
+  <div class="row record-container green top-buffer">
+    <div class="search-result-container">
+      <img class="record-profile-pic" src="{{isNullWithValue this.profilePicUrl '/img/icons/png/Book.png'}}"/>
+      <strong class="padding-left">{{isNullWithValue this.firstName 'No First Name'}} {{isNullWithValue this.lastName 'No Last Name'}}</strong>
+      <a href="" class="search-add-contact-button" id="{{this._id}}"><span class="fui-plus pull-right record-button"></span></a>
+      <a href="{{pathFor 'transfer'}}"><span class="pull-right padding-more-right record-pay">$</span></a>
+    </div>
+  </div>
 </template>

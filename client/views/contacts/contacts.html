@@ -1,24 +1,29 @@
 <template name="contacts">
 	{{setBackPath 'home'}}
 	<p><strong>Contacts</strong></p>
-	<input class="form-control" id="contacts-add-input" placeholder="Add: Phone # or Email"/>
-	<button class="btn btn-hg btn-warning full-width top-buffer" id="contact-add-button">
-		<span class="fui-plus"></span>
+	<button class="btn btn-hg btn-warning full-width" id="contact-add-button">
+		<span class="fui-search"></span>
 	</button>
+	<small id="contacts-add-instructions">Search (in the navbar) to add a contact.</small>
 	{{#if isNull currentUser.contactList}}
-		<div class="text-center full-width top-buffer">
+		<div class="text-center full-width">
 			<strong>Add some contacts.</strong>
 		</div>
 	{{else}}
 		{{#each currentUser.contactList}}
-			<a href="{{pathFor 'contact_info_view' userId=key}}">
-				<div class="row top-buffer record-container green no-padding-top">
-					<strong class="padding-left">{{this.name}}</strong>
-					<span class="fui-arrow-right pull-right contact-record-select-button"></span>
-				</div>
-			</a>
+			{{>contact_record}}
 		{{/each}}
 	{{/if}}
+</template>
+<template name="contact_record">
+	<div class="row record-container green top-buffer">
+    <div class="search-result-container">
+      <img class="record-profile-pic" src="{{isNullWithValue this.profilePicUrl '/img/icons/png/Book.png'}}"/>
+      <strong class="padding-left">{{isNullWithValue this.name 'No Name'}}</strong>
+      <a href=""><span class="fui-arrow-right pull-right record-button"></span></a>
+      <a href="{{pathFor 'transfer'}}"><span class="pull-right padding-more-right record-pay">$</span></a>
+    </div>
+  </div>
 </template>
 <template name="contact_info_view">
 	<img class="center-block" src="/img/icons/png/Book.png" id="contact-info-view-profile-pic"/>
